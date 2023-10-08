@@ -309,7 +309,7 @@ torchvision==0.15.2
 tornado==6.3.2
 tqdm==4.66.1
 traitlets==5.9.0
--e git+https://github.com/datquocnguyen/transformers.git@8bb9b7e9219a2bdbecfcf18d1b8d8a63a5c189b5#egg=transformers
+transformers
 typing-inspect==0.9.0
 typing_extensions==4.5.0
 tzdata==2023.3
