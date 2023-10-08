@@ -7,6 +7,7 @@ import torch
 import random
 from datasets import load_dataset
 
+import nbimporter
 from utlis import *
 from preprocessing import preprocess
 from models import CustomXLMModel
