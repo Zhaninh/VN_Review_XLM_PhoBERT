@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 from transformers import AdamW, get_scheduler
 from torch.utils.data import DataLoader
 from vncorenlp import VnCoreNLP
@@ -14,14 +8,10 @@ import random
 from datasets import load_dataset
 
 
-import nbimporter
 from preprocessing import preprocess
 from models import CustomXLMModel
 from metrics import *
 from loss import *
-
-
-# In[2]:
 
 
 # Set Seed
@@ -36,8 +26,10 @@ torch.backends.cudnn.deterministic = True
 
 
 # Load datasets
-data_files = {'train': r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_split\trainset.csv", 
-              'test': r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_split\testset.csv"}
+trainset_path, testset_path = get_train_test_path(__file__)
+
+data_files = {'train': trainset_path, 
+              'test': testset_path}
 
 dataset = load_dataset('csv', data_files=data_files)
 
