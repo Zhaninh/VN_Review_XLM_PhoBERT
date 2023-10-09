@@ -148,10 +148,3 @@ for epoch in range(num_epochs):
     print("R2_score", r2_score)
     print("Final_score", final_score)
     print("Best_score", best_score)
-
-
-# In[ ]:
-
-
-
-
