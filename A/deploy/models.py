@@ -1,19 +1,10 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import torch.nn as nn
 import torch
 from transformers import AutoModel
-import nbimporter
 
 from preprocessing import preprocess
 from utlis import pred_to_label
 
-
-# In[2]:
 
 
 class ModelInference(nn.Module):
@@ -48,8 +39,6 @@ class ModelInference(nn.Module):
         return outputs
 
 
-# In[3]:
-
 
 class CustomXLMModel(nn.Module):
     def __init__(self, num_classification_labels=6, num_regression_neurons=30):
@@ -72,4 +61,3 @@ class CustomXLMModel(nn.Module):
         outputs_classifier = torch.sigmoid(outputs_classifier)
         outputs_regressor = outputs_regressor.view(-1, 6, 5)
         return outputs_classifier, outputs_regressor
-
