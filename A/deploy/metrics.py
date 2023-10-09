@@ -225,3 +225,47 @@ def final_score(f1, r2):
     '''
     
     return (1 / len(f1)) * np.sum(f1 * r2)
+
+
+# In[4]:
+
+
+# Khởi tạo y_true và y_pred
+y_true = [[3, 0, 1, 2, 0, 0], [1, 0, 4, 0, 0, 2]]
+y_pred = [[3, 1, 0, 0, 0, 1], [0, 0, 4, 0, 0, 0]]
+y_tconc = [[0, 2, 0, 1, 0, 0], [0, 0, 0, 3, 0, 0]]
+y_pconc = [[0, 2, 0, 0, 2, 0], [0, 2, 0, 3, 0, 0]]
+
+# 0. Tính accuracy
+ac = accuracy()
+ac.update(y_true, y_pred)
+ac.update(y_tconc, y_pconc)
+acc = ac.compute()
+print(f'Accuracy: {acc}')
+
+
+# 1. Tính điểm F1
+f1 = f1_score()
+f1.update(y_true, y_pred)
+f1.update(y_tconc, y_pconc)
+f1_s = f1.compute()
+print(f'F1 Score: {f1_s}')
+
+# 2. Tính điểm R2
+r2 = r2_score()
+r2.update(y_true, y_pred)
+r2.update(y_tconc, y_pconc)
+r2_s = r2.compute()
+print(f'R2 Score: {r2_s}')
+
+
+# 3. Tính final score
+final = final_score(f1_s, r2_s)
+print(f'Final score: {final}')
+
+
+# In[ ]:
+
+
+
+

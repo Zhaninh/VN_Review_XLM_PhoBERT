@@ -7,6 +7,7 @@
 import torch.nn as nn
 import torch
 from transformers import AutoModel
+import nbimporter
 
 from preprocessing import preprocess
 from utlis import pred_to_label
@@ -18,7 +19,7 @@ from utlis import pred_to_label
 class ModelInference(nn.Module):
     def __init__(self, tokenizer, rdrsegmenter, model_path, checkpoint="xlm-mlm-100-1280", device="cpu"):
         super(ModelInference, self).__init__()
-        self.preprocess = Preprocess(tokenizer, rdrsegmenter)
+        self.preprocess = preprocess()
         self.model = CustomXLMModel()
         self.device = device
         self.model.load_state_dict(torch.load(model_path,map_location=torch.device(device)))
@@ -54,7 +55,7 @@ class CustomXLMModel(nn.Module):
     def __init__(self, num_classification_labels=6, num_regression_neurons=30):
         super(CustomXLMModel, self).__init__()
         # Load a pre-trained XLM model
-        self.model = AutoModel.from_pretrained("xlm-mlm-100-1280")
+        self.model = AutoModel.from_pretrained("xlm-roberta-base", output_attentions=True,output_hidden_states=True)
         
         # Define layers
         self.dropout = nn.Dropout(0.1)
@@ -64,7 +65,7 @@ class CustomXLMModel(nn.Module):
     def forward(self, input_ids, attention_mask):
         # Forward pass through XLM model
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        outputs = torch.cat((outputs[2][-1][:, 0, ...], outputs[2][-2][:, 0, ...], outputs[2][-3][:, 0, ...], outputs[2][-4][:, 0, ...]), -1)
+        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
         outputs = self.dropout(outputs)
         outputs_classifier = self.classifier(outputs)
         outputs_regressor = self.regressor(outputs)

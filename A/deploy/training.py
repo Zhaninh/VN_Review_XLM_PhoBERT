@@ -14,6 +14,7 @@ import random
 from datasets import load_dataset
 
 
+import nbimporter
 from utlis import *
 from preprocessing import preprocess
 from models import CustomXLMModel
@@ -21,7 +22,7 @@ from metrics import *
 from loss import *
 
 
-# In[ ]:
+# In[2]:
 
 
 # Set Seed
@@ -87,7 +88,7 @@ for epoch in range(num_epochs):
         outputs_classifier, outputs_regressor = model(**inputs)
 
         # Calculate the losses
-        loss1 = sigmoid_focal_loss(outputs_classifier, batch['labels_classifier'].to(device).float(), alpha=-1, gamma=1,reduction='mean')
+        loss1 = SigmoidFocalLoss(outputs_classifier, batch['labels_classifier'].to(device).float(), alpha=-1, gamma=1,reduction='mean')
         loss2 = loss_softmax(outputs_regressor, batch['labels_regressor'].to(device).float(), device)
 
         loss = 10*loss1 + loss2
@@ -148,3 +149,10 @@ for epoch in range(num_epochs):
     print("R2_score", r2_score)
     print("Final_score", final_score)
     print("Best_score", best_score)
+
+
+# In[ ]:
+
+
+
+
