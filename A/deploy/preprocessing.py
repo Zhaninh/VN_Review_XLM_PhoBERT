@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -8,9 +14,11 @@ nltk.download('stopwords')
 import os
 from transformers import AutoTokenizer
 from vncorenlp import VnCoreNLP
-from datasets import load_dataset, DatasetDict, Dataset
+from datasets import DatasetDict, Dataset
 
-#-----------------------------------------------------------------------------------------------------------------------
+
+# In[2]:
+
 
 def rm_special_keys(review):
     special_character = re.compile("�+")
@@ -60,11 +68,13 @@ def clean_text(review):
     cleaned_review = {"Review": rm_escape_characters(normalize_annotatation(rm_special_keys(rm_punctuation(rm_emoji(rm_urls_paths(review['Review'].lower()))))))}
     return cleaned_review
 
-#-----------------------------------------------------------------------------------------------------------------------
+
+# In[3]:
+
 
 class preprocess():
     def __init__(self):
-        self.tokenizer = AutoTokenizer.from_pretrained("vinai/phobert-base")
+        self.tokenizer = AutoTokenizer.from_pretrained("xlm-mlm-100-1280")
         self.segmenter = VnCoreNLP(r"D:\FSoft\Review_Ana\Dream_Tim\A\vncorenlp\VnCoreNLP-1.1.1.jar", annotators="wseg", max_heap_size='-Xmx500m')
         self.feature = ['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam']
         
@@ -99,31 +109,20 @@ class preprocess():
         
         return dataset
 
-#-----------------------------------------------------------------------------------------------------------------------
+data_path = r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_original\Original-datasets.csv"
+train_df = pd.read_csv(data_path)
+train_dfnew_value = 'Tôi bắt xe 7� chỗ đi từ sân bay về nhà.Thái độ của tài� xế không� vui vẻ khi đón chúng tôi.mặt thì nhăn nhó thái độ thì lơ lơ.gia đình đi \r\n7 người.tài xe mở cốp xe rồi để tôi tự xếp hành lý vào.sau đó dẹp lun 2 ghế sau để chất vali lên.5 người!!!@@ trong gia đình phải dồn vô ngồi ghế giữa. 2 người ngồi ghế trước.lên xe thì nóng.tôi yêu cầu tài xế%^& 😂 mở máy lạnh thì tài xế bảo cả sáng h()#% đậu ngoài nắng nên nóng.chạy\r\n 10p vẫn chưa thấy mở máy lạnh.mà#&^#&😂😂 trong xe nóng như cái lò 5 người ngồi chen nhau.hỏi tiếp thì không trả lời.sau đó mình yêu cầu nhiều quá mới kêu đang mở.về gần đến nhà mới thấy quạt nó thổi mát được xíu.ngồi trên xe 30p mà như cực hình.yêu cầu công ty xem xét lại thái độ làm việc của tài xế chạy xe 6898 lúc 10h sáng ngày 10 tháng 7.nghiêm túc phê bình.https://example.com or visit C:\\Documents\\file.txt. hoặc là www.example.com.vn'
 
-if __name__ == "__main__":
-    data_path = r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_original\Original-datasets.csv"
-    train_df = pd.read_csv(data_path)
-    train_df
+# Đặt giá trị mới cho hàng và cột cụ thể trong DataFrame
+train_df.at[7, 'Review']=new_value
+train_df.at[7, 'Review']train_dataset = Dataset.from_pandas(train_df)
 
-    # Change value in roder to see the changes
-    new_value = 'Tôi bắt xe 7� chỗ đi từ sân bay về nhà.Thái độ của tài� xế không� vui vẻ khi đón chúng tôi.mặt thì nhăn nhó thái độ thì lơ lơ.gia đình đi \r\n7 người.tài xe mở cốp xe rồi để tôi tự xếp hành lý vào.sau đó dẹp lun 2 ghế sau để chất vali lên.5 người!!!@@ trong gia đình phải dồn vô ngồi ghế giữa. 2 người ngồi ghế trước.lên xe thì nóng.tôi yêu cầu tài xế%^& 😂 mở máy lạnh thì tài xế bảo cả sáng h()#% đậu ngoài nắng nên nóng.chạy\r\n 10p vẫn chưa thấy mở máy lạnh.mà#&^#&😂😂 trong xe nóng như cái lò 5 người ngồi chen nhau.hỏi tiếp thì không trả lời.sau đó mình yêu cầu nhiều quá mới kêu đang mở.về gần đến nhà mới thấy quạt nó thổi mát được xíu.ngồi trên xe 30p mà như cực hình.yêu cầu công ty xem xét lại thái độ làm việc của tài xế chạy xe 6898 lúc 10h sáng ngày 10 tháng 7.nghiêm túc phê bình.https://example.com or visit C:\\Documents\\file.txt. hoặc là www.example.com.vn'
-    train_df.at[7, 'Review']=new_value
-    train_df.at[7, 'Review']
-
-    # Convert dataset to DatasetDict()
-    train_dataset = Dataset.from_pandas(train_df)
-    dataset_dict = DatasetDict({
-        'train': train_dataset
-    })
-
-
-    reviews_df = dataset_dict.copy()
-
-    # PREPROCESS
-    prep = preprocess()
-    tokenized_datasets = prep.run(dataset_dict)
-
-    # Compare result between original with preprocessing data
-    reviews_df['train']['Review'][7]
-    print(tokenized_datasets['train']['Review'][7])
+# Tạo một DatasetDict mới
+dataset_dict = DatasetDict({
+    'train': train_dataset
+})
+dataset_dict['train']['Review'][7]reviews_df = dataset_dict.copy()
+reviews_dfprep = preprocess()
+tokenized_datasets = prep.run(dataset_dict)reviews_df['train']['Review'][7]tokenized_datasets['train']['Review'][7]df = pd.DataFrame(tokenized_datasets['train'])dfdf.iloc[0].input_idsreview=1
+for i in range(len(df.iloc[review].input_ids)):
+    print(f'{df.iloc[review].input_ids[i]} ---> {prep.tokenizer.decode(df.iloc[0].input_ids[i])}')df['labels_regressor'][3687]df['labels_classifier'][3687]
