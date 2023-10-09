@@ -15,13 +15,14 @@ from datasets import load_dataset
 
 
 import nbimporter
+from utlis import *
 from preprocessing import preprocess
 from models import CustomXLMModel
 from metrics import *
 from loss import *
 
 
-# In[2]:
+# In[ ]:
 
 
 # Set Seed
@@ -36,8 +37,9 @@ torch.backends.cudnn.deterministic = True
 
 
 # Load datasets
-data_files = {'train': r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_split\trainset.csv", 
-              'test': r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_split\testset.csv"}
+trainset_path, testset_path = get_train_test_path()
+data_files = {'train': trainset_path, 
+              'test': testset_path}
 
 dataset = load_dataset('csv', data_files=data_files)
 
@@ -53,14 +55,14 @@ test_dataloader = DataLoader(tokenized_datasets["test"],
                              batch_size=32)
 
 # Model 
-model = CustomXLMModel(num_classification_labels=6, num_regression_neurons=30)
+model = CustomXLMModel()
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model.to(device)
 
 # Optimizer
 optimizer = AdamW(model.parameters(), lr=5e-5)
-num_epochs = 10
+num_epochs = 1
 num_training_steps = num_epochs*len(train_dataloader)
 lr_scheduler = get_scheduler(
     'linear',
@@ -101,7 +103,6 @@ for epoch in range(num_epochs):
     print("Train Loss:", train_loss)
     
     # Evaluate
-    # model.eval()
     val_loss = ScalarMetric()
     val_loss_classifier = ScalarMetric()
     val_loss_regressor = ScalarMetric()
@@ -140,7 +141,7 @@ for epoch in range(num_epochs):
     
     if final_score > best_score:
         best_score = final_score
-        torch.save(model.state_dict(), r"D:\FSoft\Review_Ana\Dream_Tim\A\weights\model.pt")
+        torch.save(model.state_dict(), os.path.join(get_proj_path(), 'weights', 'model.pt'))
         
     print("Test Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
     print("Acc", val_acc.compute())

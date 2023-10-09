@@ -8,13 +8,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import re
-import nltk
-from nltk.corpus import stopwords
-nltk.download('stopwords')
 import os
 from transformers import AutoTokenizer
 from vncorenlp import VnCoreNLP
 from datasets import DatasetDict, Dataset
+import nbimporter
+from utlis import *
 
 
 # In[2]:
@@ -74,8 +73,9 @@ def clean_text(review):
 
 class preprocess():
     def __init__(self):
+        self.proj_path = get_proj_path()
         self.tokenizer = AutoTokenizer.from_pretrained("xlm-mlm-100-1280")
-        self.segmenter = VnCoreNLP(r"D:\FSoft\Review_Ana\Dream_Tim\A\vncorenlp\VnCoreNLP-1.1.1.jar", annotators="wseg", max_heap_size='-Xmx500m')
+        self.segmenter = VnCoreNLP(os.path.join(self.proj_path, 'vncorenlp', 'VnCoreNLP-1.1.1.jar'), annotators="wseg", max_heap_size='-Xmx500m')
         self.feature = ['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam']
         
     def segment(self, df):
@@ -89,8 +89,7 @@ class preprocess():
             'labels_classifier': np.array([int(example[i] != 0) for i in self.feature])}
     
     def rm_stopwords(self, text, remove_stopwords=True):
-        dir_path = r"D:\FSoft\Review_Ana\Dream_Tim\A"
-        stopword_path = os.path.join(dir_path, r"vn_stopwords\vietnamese-stopwords-dash.txt")
+        stopword_path = os.path.join(self.proj_path, "vn_stopwords", "vietnamese-stopwords-dash.txt")
         with open(stopword_path, 'r', encoding='utf-8') as file:
             stop_words = set(file.read().splitlines())    
         words = text['Review'].split()

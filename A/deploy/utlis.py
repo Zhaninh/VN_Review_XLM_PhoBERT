@@ -39,14 +39,26 @@ def save_split_dir(prep_train_df, prep_test_df):
     prep_test_df.to_csv(test_dir)
 
 
-# In[13]:
+# In[11]:
 
 
-def get_train_test_path(filename):
-    A_dir = os.path.dirname(os.path.dirname(os.path.abspath(filename)))
-    datasets_dir = os.path.join(A_dir, "datasets")
-    data_split_dir = os.path.join(datasets_dir, "data_split")
-    trainset_dir = os.path.join(data_split_dir, "trainset.csv")
-    testset_dir = os.path.join(data_split_dir, "testset.csv")    
+def get_proj_path():
+    A_dir = os.path.dirname(os.getcwd())
+    return A_dir
+
+
+# In[16]:
+
+
+def get_train_test_path():
+    A_dir = get_proj_path()
+    trainset_dir = os.path.join(A_dir, "datasets", "data_split", "trainset.csv")
+    testset_dir = os.path.join(A_dir, "datasets", "data_split", "testset.csv") 
     return trainset_dir, testset_dir
+
+
+# In[ ]:
+
+
+
 
