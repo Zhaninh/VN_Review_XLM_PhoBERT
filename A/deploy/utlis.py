@@ -27,18 +27,6 @@ def pred_to_label(outputs_classifier, outputs_regressor):
 	return result
 
 
-# In[12]:
-
-
-def save_split_dir(prep_train_df, prep_test_df):
-    save_dir = r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_split"
-    train_dir = os.path.join(save_dir, r"trainset.csv")
-    test_dir = os.path.join(save_dir, r"testset.csv")
-
-    prep_train_df.to_csv(train_dir)
-    prep_test_df.to_csv(test_dir)
-
-
 # In[11]:
 
 
@@ -47,18 +35,55 @@ def get_proj_path():
     return A_dir
 
 
+# In[12]:
+
+
+def save_split_dir(prep_train_df, prep_test_df):
+    A_dir = get_proj_path()
+    save_dir = os.path.join(A_dir, 'datasets', 'data_split')
+    train_dir = os.path.join(save_dir, r"trainset.csv")
+    test_dir = os.path.join(save_dir, r"testset.csv")
+
+    prep_train_df.to_csv(train_dir)
+    prep_test_df.to_csv(test_dir)
+
+
 # In[16]:
 
 
-def get_train_test_path():
+def get_train_dev_path():
     A_dir = get_proj_path()
     trainset_dir = os.path.join(A_dir, "datasets", "data_split", "trainset.csv")
-    testset_dir = os.path.join(A_dir, "datasets", "data_split", "testset.csv") 
-    return trainset_dir, testset_dir
+    devset_dir = os.path.join(A_dir, "datasets", "data_split", "testset.csv") 
+    return trainset_dir, devset_dir
+
+
+# In[2]:
+
+
+def get_test_path():
+    A_dir = get_proj_path()
+    testset_path = os.path.join(A_dir, "datasets", "private_test", "chall_02_private_test.csv")
 
 
 # In[ ]:
 
 
+def get_weight_path():
+    A_dir = get_proj_path()
+    weights_dir = os.path.join(A_dir, "weights")
+    
+    # Get a list of all files in the "weights" directory with the appropriate filename format (e.g. *.h5 if you use Keras)
+    weight_files = glob.glob(os.path.join(weights_dir, '*.pt'))
 
+    if not weight_files:
+        return None
+
+    # Sort the list of files by date modified from new to old
+    weight_files.sort(key=os.path.getmtime, reverse=True)
+
+    # Get the latest weight file
+    latest_weight_path = weight_files[0]
+
+    return latest_weight_path
 

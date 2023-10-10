@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[3]:
 
 
 from transformers import AdamW, get_scheduler
@@ -21,7 +21,7 @@ from metrics import *
 from loss import *
 
 
-# In[2]:
+# In[4]:
 
 
 # Set Seed
@@ -36,9 +36,9 @@ torch.backends.cudnn.deterministic = True
 
 
 # Load datasets
-trainset_path, testset_path = get_train_test_path()
+trainset_path, devset_path = get_train_dev_path()
 data_files = {'train': trainset_path, 
-              'test': testset_path}
+              'dev': devset_path}
 
 dataset = load_dataset('csv', data_files=data_files)
 
@@ -50,11 +50,11 @@ train_dataloader = DataLoader(tokenized_datasets["train"],
                               batch_size=32, 
                               shuffle=True)
 
-test_dataloader = DataLoader(tokenized_datasets["test"], 
+dev_dataloader = DataLoader(tokenized_datasets["dev"], 
                              batch_size=32)
 
 # Model 
-model = CustomXLMModel()
+model = CustomXLMModel_v2()
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model.to(device)
@@ -72,7 +72,7 @@ lr_scheduler = get_scheduler(
 
 # Training
 pb_train = tqdm(range(num_training_steps))
-pb_test = tqdm(range(num_epochs*len(test_dataloader)))
+pb_dev = tqdm(range(num_epochs*len(dev_dataloader)))
 best_score = -1
 
 for epoch in range(num_epochs):
@@ -112,7 +112,7 @@ for epoch in range(num_epochs):
     correct = 0
     result = None
     model.eval()
-    for batch in test_dataloader:
+    for batch in dev_dataloader:
         inputs = {'input_ids': batch['input_ids'].to(device),
                 'attention_mask': batch['attention_mask'].to(device)}
         with torch.no_grad():
@@ -132,21 +132,21 @@ for epoch in range(num_epochs):
             val_acc.update(np.round(outputs), y_true)
             val_f1_score.update(np.round(outputs), y_true)
             val_r2_score.update(np.round(outputs), y_true)
-            pb_test.update(1)
+            pb_dev.update(1)
             
-    f1_score = val_f1_score.compute()
-    r2_score = val_r2_score.compute()
-    final_score = (f1_score * r2_score).sum()*1/6
+    F1_score = val_f1_score.compute()
+    R2_score = val_r2_score.compute()
+    Final_score = (F1_score * R2_score).sum()*1/6
     
-    if final_score > best_score:
-        best_score = final_score
+    if Final_score > best_score:
+        best_score = Final_score
         torch.save(model.state_dict(), os.path.join(get_proj_path(), 'weights', 'model.pt'))
         
-    print("Test Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
+    print("Dev Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
     print("Acc", val_acc.compute())
-    print("F1_score", f1_score)
-    print("R2_score", r2_score)
-    print("Final_score", final_score)
+    print("F1_score", F1_score)
+    print("R2_score", R2_score)
+    print("Final_score", Final_score)
     print("Best_score", best_score)
 
 

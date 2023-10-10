@@ -113,34 +113,4 @@ class EDA():
         plt.show()
 
 
-# In[3]:
-
-
-data_path = r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_original\Original-datasets.csv"
-train_df = load_dataset('csv', data_files=data_path)
-train_df
-
-
-# In[4]:
-
-
-eda = EDA(train_df['train'])
-
-
-# In[5]:
-
-
-eda.reviews_len_distribution()
-
-
-# In[6]:
-
-
-eda.aspect_distribution()
-
-
-# In[ ]:
-
-
-
 
