@@ -7,7 +7,6 @@
 import torch.nn as nn
 import torch
 from transformers import AutoModel
-import nbimporter
 
 from preprocessing import preprocess
 from utlis import pred_to_label
@@ -147,8 +146,9 @@ class CustomBERTModel(nn.Module):
 
     def forward(self, input_ids, attention_mask):
         # Forward pass through XLM model
-        outputs = self.model(input_ids=input_ids, attention_mask=attetputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
-
+        outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
+        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
+        
         outputs = self.layer1(outputs)
         outputs = F.relu(outputs)
         outputs = self.bn1(outputs)
