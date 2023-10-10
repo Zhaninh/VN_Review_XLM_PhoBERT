@@ -16,7 +16,7 @@ from datasets import load_dataset
 
 from utlis import *
 from preprocessing import preprocess
-from models import CustomXLMModel
+from models import *
 from metrics import *
 from loss import *
 
