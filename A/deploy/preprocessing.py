@@ -6,7 +6,7 @@ import os
 from transformers import AutoTokenizer
 from vncorenlp import VnCoreNLP
 from datasets import DatasetDict, Dataset
-from utlis import *
+from helpers import get_proj_path
 
 
 
