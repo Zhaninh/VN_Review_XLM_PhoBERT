@@ -64,6 +64,7 @@ def get_train_dev_path():
 def get_test_path():
     A_dir = get_proj_path()
     testset_path = os.path.join(A_dir, "datasets", "private_test", "chall_02_private_test.csv")
+    return testset_path
 
 
 # In[ ]:

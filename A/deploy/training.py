@@ -14,6 +14,7 @@ import random
 from datasets import load_dataset
 
 
+import nbimporter
 from utlis import *
 from preprocessing import preprocess
 from models import *
@@ -54,14 +55,14 @@ dev_dataloader = DataLoader(tokenized_datasets["dev"],
                              batch_size=32)
 
 # Model 
-model = CustomXLMModel_v2()
+model = CustomXLMModel()
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model.to(device)
 
 # Optimizer
 optimizer = AdamW(model.parameters(), lr=5e-5)
-num_epochs = 10
+num_epochs = 1010
 num_training_steps = num_epochs*len(train_dataloader)
 lr_scheduler = get_scheduler(
     'linear',

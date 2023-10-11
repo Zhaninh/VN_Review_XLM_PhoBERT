@@ -5,9 +5,9 @@
 
 
 import torch.nn as nn
-from torch.nn import functional as F
 import torch
 from transformers import AutoModel
+import nbimporter
 
 from preprocessing import preprocess
 from utlis import pred_to_label
