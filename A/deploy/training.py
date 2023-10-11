@@ -7,13 +7,11 @@ import torch
 import random
 from datasets import load_dataset
 
-
-from utlis import *
+from utlis import get_train_dev_path, pred_to_label
 from preprocessing import preprocess
-from models import *
+from models import CustomXLMModel, CustomXLMModel_v2
 from metrics import *
 from loss import *
-
 
 
 
