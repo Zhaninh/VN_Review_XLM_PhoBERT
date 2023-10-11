@@ -7,7 +7,7 @@ import torch
 import random
 from datasets import load_dataset
 
-from utlis import get_train_dev_path, pred_to_label, save_model_weights
+from helpers import get_train_dev_path, pred_to_label, save_model_weights
 from preprocessing import preprocess
 from models import CustomXLMModel, CustomXLMModel_v2
 from metrics import *
