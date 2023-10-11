@@ -1,14 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import numpy as np
 import os
-
-
-# In[2]:
 
 
 def pred_to_label(outputs_classifier, outputs_regressor):
@@ -27,15 +18,11 @@ def pred_to_label(outputs_classifier, outputs_regressor):
 	return result
 
 
-# In[11]:
-
 
 def get_proj_path():
     A_dir = os.path.dirname(os.getcwd())
     return A_dir
 
-
-# In[12]:
 
 
 def save_split_dir(prep_train_df, prep_test_df):
@@ -48,8 +35,6 @@ def save_split_dir(prep_train_df, prep_test_df):
     prep_test_df.to_csv(test_dir)
 
 
-# In[16]:
-
 
 def get_train_dev_path():
     A_dir = get_proj_path()
@@ -58,16 +43,12 @@ def get_train_dev_path():
     return trainset_dir, devset_dir
 
 
-# In[2]:
-
 
 def get_test_path():
     A_dir = get_proj_path()
     testset_path = os.path.join(A_dir, "datasets", "private_test", "chall_02_private_test.csv")
     return testset_path
 
-
-# In[ ]:
 
 
 def get_weight_path():
@@ -87,4 +68,3 @@ def get_weight_path():
     latest_weight_path = weight_files[0]
 
     return latest_weight_path
-
