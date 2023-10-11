@@ -131,7 +131,8 @@ for epoch in range(num_epochs):
     
     if Final_score > best_score:
         best_score = Final_score
-        torch.save(model.state_dict(), os.path.join(get_proj_path(), 'weights', 'model.pt'))
+        weight_path = r'/content/drive/MyDrive/Review_analysis_training/weights'
+        save_model_weights(model, weight_path)
         
     print("Dev Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
     print("Acc", val_acc.compute())
