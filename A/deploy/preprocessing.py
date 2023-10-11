@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,11 +6,8 @@ import os
 from transformers import AutoTokenizer
 from vncorenlp import VnCoreNLP
 from datasets import DatasetDict, Dataset
-import nbimporter
 from utlis import *
 
-
-# In[2]:
 
 
 def rm_special_keys(review):
@@ -67,8 +58,6 @@ def clean_text(review):
     cleaned_review = {"Review": rm_escape_characters(normalize_annotatation(rm_special_keys(rm_punctuation(rm_emoji(rm_urls_paths(review['Review'].lower()))))))}
     return cleaned_review
 
-
-# In[3]:
 
 
 class preprocess():
