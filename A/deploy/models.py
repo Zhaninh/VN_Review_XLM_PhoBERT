@@ -39,7 +39,6 @@ class ModelInference(nn.Module):
         return outputs
 
 
-# In[3]:
 
 
 class CustomXLMModel(nn.Module):
@@ -65,7 +64,6 @@ class CustomXLMModel(nn.Module):
         return outputs_classifier, outputs_regressor
 
 
-# In[3]:
 
 
 class CustomXLMModel_v2(nn.Module):
@@ -115,6 +113,7 @@ class CustomXLMModel_v2(nn.Module):
         outputs_regressor = outputs_regressor.view(-1, 6, 5)
         
         return outputs_classifier, outputs_regressor
+
 
 
 
@@ -189,4 +188,3 @@ class EnsembleModel(nn.Module):
         ensemble_regressor_output = torch.mean(torch.stack(all_regressor_outputs), dim=0)
 
         return ensemble_classifier_output, ensemble_regressor_output
-
