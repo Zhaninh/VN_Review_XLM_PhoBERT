@@ -1,13 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import numpy as np
 
-
-# In[2]:
 
 
 class ScalarMetric():
@@ -24,8 +16,6 @@ class ScalarMetric():
         self.scalar = 0
         self.num = 0
 
-
-# In[3]:
 
 
 class accuracy():   
@@ -103,6 +93,7 @@ def recall(y_pred, y_true):
     return (true_positive + epsilon) / (true_positive + false_negative + epsilon)
     
 
+
 class f1_score:
     def __init__(self):
         self.y_true = None
@@ -168,6 +159,7 @@ class f1_score:
         self.y_pred = None
 
 
+
 class r2_score:
     def __init__(self):
         self.y_true = None
@@ -212,6 +204,7 @@ class r2_score:
         
         self.y_true = None
         self.y_pred = None
+
 
 
 def final_score(f1, r2):
