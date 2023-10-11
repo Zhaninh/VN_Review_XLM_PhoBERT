@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import torch.nn as nn
 import torch
 from transformers import AutoModel
@@ -12,8 +6,6 @@ import nbimporter
 from preprocessing import preprocess
 from utlis import pred_to_label
 
-
-# In[2]:
 
 
 class ModelInference(nn.Module):
@@ -83,28 +75,25 @@ class CustomXLMModel_v2(nn.Module):
         # Load a pre-trained XLM model
         self.model = AutoModel.from_pretrained("xlm-roberta-base", output_attentions=True,output_hidden_states=True)
         
-        # Define layers
         # Layer 1
         self.dropout1 = nn.Dropout(0.1)
         self.layer1 = nn.Linear(self.model.config.hidden_size * 4, 512)
         self.bn1 = nn.BatchNorm1d(512)
         self.reLu = nn.ReLU()
         
-
         # Layer Classification
         self.dropout2 = nn.Dropout(0.1)
         self.classifier = nn.Linear(self.model.config.hidden_size * 4, num_classification_labels)
         self.bn2 = nn.BatchNorm1d(num_classification_labels)
         
-
         # Layer Regression
         self.regressor = nn.Linear(self.model.config.hidden_size * 4, num_regression_neurons)
-
 
         nn.init.xavier_uniform_(self.layer1)
         nn.init.xavier_uniform_(self.classifier)
         nn.init.xavier_uniform_(self.regressor)
 
+    
     def forward(self, input_ids, attention_mask):
         # Forward pass through XLM model
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
@@ -116,22 +105,18 @@ class CustomXLMModel_v2(nn.Module):
         outputs = self.bn1(outputs)
         outputs = F.relu(outputs)
         
-
         # Apply classification layer
         outputs_classifier = self.dropout2(outputs_classifier)
         outputs_classifier = self.classifier(outputs)
         outputs_classifier = self.bn2(outputs_classifier)
         outputs_classifier = torch.sigmoid(outputs_classifier)
         
-
         # Apply regression layer
         outputs_regressor = self.regressor(outputs)
         outputs_regressor = outputs_regressor.view(-1, 6, 5)
         
         return outputs_classifier, outputs_regressor
 
-
-# In[ ]:
 
 
 class CustomBERTModel(nn.Module):
