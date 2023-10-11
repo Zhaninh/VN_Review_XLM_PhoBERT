@@ -53,8 +53,7 @@ def get_test_path():
 
 
 def get_weight_path():
-    A_dir = get_proj_path()
-    weights_dir = os.path.join(A_dir, "weights")
+    weights_dir = r'/content/drive/MyDrive/Review_analysis_training/Review_analysis_DreamTim/A/weights'
     
     # Get a list of all files in the "weights" directory with the appropriate filename format (e.g. *.h5 if you use Keras)
     weight_files = glob.glob(os.path.join(weights_dir, '*.pt'))
