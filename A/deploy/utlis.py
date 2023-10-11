@@ -1,6 +1,7 @@
 import numpy as np
 import os
 import glob
+import torch
 
 
 def pred_to_label(outputs_classifier, outputs_regressor):
