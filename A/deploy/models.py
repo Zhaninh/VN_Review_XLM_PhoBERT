@@ -1,7 +1,6 @@
 import torch.nn as nn
 import torch
 from transformers import AutoModel
-import nbimporter
 
 from preprocessing import preprocess
 from utlis import pred_to_label
