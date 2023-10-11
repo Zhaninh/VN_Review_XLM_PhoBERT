@@ -1,15 +1,7 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
-# In[2]:
 
 
 def SigmoidFocalLoss(
@@ -60,15 +52,11 @@ def SigmoidFocalLoss(
     return loss
 
 
-# In[3]:
-
 
 def loss_classifier(pred_classifier, labels_classifier):
     loss_fn = nn.BCELoss()
     return loss_fn(pred_classifier, labels_classifier)
 
-
-# In[4]:
 
 
 def loss_regressor(pred_regressor, labels_regressor):
@@ -76,8 +64,6 @@ def loss_regressor(pred_regressor, labels_regressor):
     loss = ((pred_regressor - labels_regressor)**2)[mask].sum() / mask.sum()
     return loss
 
-
-# In[5]:
 
 
 def loss_softmax(inputs, labels, device):
@@ -93,4 +79,3 @@ def loss_softmax(inputs, labels, device):
         loss[:, i] = loss_fn(inputs[:, i, :], label_i)
     loss = loss[mask].sum() / mask.sum()
     return loss
-
