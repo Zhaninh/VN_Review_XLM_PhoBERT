@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[3]:
-
-
 from transformers import AdamW, get_scheduler
 from torch.utils.data import DataLoader
 from vncorenlp import VnCoreNLP
@@ -14,7 +8,6 @@ import random
 from datasets import load_dataset
 
 
-import nbimporter
 from utlis import *
 from preprocessing import preprocess
 from models import *
@@ -22,7 +15,6 @@ from metrics import *
 from loss import *
 
 
-# In[4]:
 
 
 # Set Seed
@@ -149,10 +141,3 @@ for epoch in range(num_epochs):
     print("R2_score", R2_score)
     print("Final_score", Final_score)
     print("Best_score", best_score)
-
-
-# In[ ]:
-
-
-
-
