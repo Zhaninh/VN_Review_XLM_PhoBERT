@@ -85,14 +85,17 @@ class CustomXLMModel_v2(nn.Module):
         
         # Define layers
         # Layer 1
+        self.dropout1 = nn.Dropout(0.1)
         self.layer1 = nn.Linear(self.model.config.hidden_size * 4, 512)
         self.bn1 = nn.BatchNorm1d(512)
-        self.dropout1 = nn.Dropout(0.1)
+        self.reLu = nn.ReLU()
+        
 
         # Layer Classification
+        self.dropout2 = nn.Dropout(0.1)
         self.classifier = nn.Linear(self.model.config.hidden_size * 4, num_classification_labels)
         self.bn2 = nn.BatchNorm1d(num_classification_labels)
-        self.dropout1 = nn.Dropout(0.1)
+        
 
         # Layer Regression
         self.regressor = nn.Linear(self.model.config.hidden_size * 4, num_regression_neurons)
