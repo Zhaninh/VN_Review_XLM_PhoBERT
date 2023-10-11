@@ -82,7 +82,7 @@ class Evaluation:
         print("Final_score", Final_score)
 
 
-if ___name__ == "__main__":
+if __name__ == "__main__":
     # Sử dụng class Evaluation
     evaluator = Evaluation()
     evaluator.eval()
