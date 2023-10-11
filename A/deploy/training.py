@@ -52,7 +52,7 @@ model.to(device)
 
 # Optimizer
 optimizer = AdamW(model.parameters(), lr=5e-5)
-num_epochs = 1010
+num_epochs = 50
 num_training_steps = num_epochs*len(train_dataloader)
 lr_scheduler = get_scheduler(
     'linear',
