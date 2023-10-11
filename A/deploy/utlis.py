@@ -83,4 +83,4 @@ def save_model_weights(model, weight_path):
     new_weight_filename = f'model_{num_existing_weights + 1}.pt'
 
     # Lưu trọng số của mô hình với tên tệp mới
-    torch.save(model.state_dict(), os.path.join(weights_path, new_weight_filename))
+    torch.save(model.state_dict(), os.path.join(weight_path, new_weight_filename))
