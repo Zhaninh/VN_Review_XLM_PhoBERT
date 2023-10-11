@@ -68,3 +68,18 @@ def get_weight_path():
     latest_weight_path = weight_files[0]
 
     return latest_weight_path
+
+
+
+def save_model_weights(model, weight_path):
+    # Lấy danh sách tất cả các tệp .pt trong thư mục 'weights'
+    existing_weights = [f for f in os.listdir(weight_path) if f.endswith(".pt")]
+
+    # Số lượng tệp .pt hiện có
+    num_existing_weights = len(existing_weights)
+
+    # Xây dựng tên tệp mới dựa trên số lượng tệp hiện có
+    new_weight_filename = f'model_{num_existing_weights + 1}.pt'
+
+    # Lưu trọng số của mô hình với tên tệp mới
+    torch.save(model.state_dict(), os.path.join(weights_path, new_weight_filename))
