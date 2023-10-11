@@ -3,7 +3,7 @@ import torch
 from transformers import AutoModel
 
 from preprocessing import preprocess
-from utlis import pred_to_label
+from helpers import pred_to_label
 
 
 
