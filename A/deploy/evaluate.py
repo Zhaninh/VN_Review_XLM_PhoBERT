@@ -6,9 +6,11 @@ import torch
 import random
 from datasets import load_dataset
 
-from utlis import *
+from utlis import get_test_path, get_weight_path
 from preprocessing import preprocess
-from models import *
+from models import CustomXLMModel, CustomXLMModel_v2
+from loss import *
+from metrics import *
 
 
 
