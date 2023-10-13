@@ -9,7 +9,7 @@ from datasets import load_dataset
 
 from helpers import get_train_dev_path, pred_to_label, save_model_weights
 from preprocessing import preprocess
-from models import CustomXLMModel, CustomXLMModel_v2
+from models import CustomXLMModel, CustomBERTModel
 from metrics import *
 from loss import *
 
@@ -45,7 +45,8 @@ dev_dataloader = DataLoader(tokenized_datasets["dev"],
                              batch_size=32)
 
 # Model 
-model = CustomXLMModel()
+#model = CustomXLMModel()
+model = CustomBERTModel()
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model.to(device)
