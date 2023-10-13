@@ -34,7 +34,7 @@ data_files = {'train': trainset_path,
 dataset = load_dataset('csv', data_files=data_files)
 
 # Preprocess
-prep = preprocess("xlm-roberta-base")
+# prep = preprocess("xlm-roberta-base")
 prep = preprocess("vinai/phobert-base")
 tokenized_datasets = prep.run(dataset)
 
