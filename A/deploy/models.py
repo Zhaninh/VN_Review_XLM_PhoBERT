@@ -119,7 +119,7 @@ class CustomXLMModel_v2(nn.Module):
 
 class CustomBERTModel(nn.Module):
     def __init__(self, num_classification_labels=6, num_regression_neurons=30):
-        super(CustomXLMModel, self).__init__()
+        super(CustomBERTModel, self).__init__()
         # Load a pre-trained XLM model
         self.model = AutoModel.from_pretrained("vinai/phobert-base", output_attentions=True,output_hidden_states=True)
         
