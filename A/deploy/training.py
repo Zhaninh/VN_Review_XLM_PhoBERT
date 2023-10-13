@@ -34,8 +34,9 @@ data_files = {'train': trainset_path,
 dataset = load_dataset('csv', data_files=data_files)
 
 # Preprocess
-preprocess = preprocess()
-tokenized_datasets = preprocess.run(dataset)
+prep = preprocess("xlm-roberta-base")
+prep = preprocess("vinai/phobert-base")
+tokenized_datasets = prep.run(dataset)
 
 train_dataloader = DataLoader(tokenized_datasets["train"], 
                               batch_size=32, 
