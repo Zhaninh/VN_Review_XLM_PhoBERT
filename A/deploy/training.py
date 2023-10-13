@@ -45,8 +45,8 @@ dev_dataloader = DataLoader(tokenized_datasets["dev"],
                              batch_size=32)
 
 # Model 
-#model = CustomXLMModel()
-model = CustomBERTModel()
+model = CustomXLMModel()
+#model = CustomBERTModel()
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model.to(device)
