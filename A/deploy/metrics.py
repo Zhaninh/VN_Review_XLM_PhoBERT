@@ -36,8 +36,8 @@ class accuracy():
         
         y_true = np.array(y_true)
         y_pred = np.array(y_pred)
-        self.correct = (y_pred == y_true).sum()
-        self.num = len(y_pred)*y_pred.shape[1]
+        self.correct += (y_pred == y_true).sum()
+        self.num += len(y_pred)*y_pred.shape[1]
 
     
     def compute(self):
