@@ -129,7 +129,7 @@ class CustomBERTModel(nn.Module):
         self.regressor = nn.Linear(self.model.config.hidden_size * 4, num_regression_neurons)
 
     def forward(self, input_ids, attention_mask):
-        # Forward pass through XLM model
+        # Forward pass through BERT model
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
         outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
         outputs = self.dropout(outputs)
