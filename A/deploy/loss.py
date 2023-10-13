@@ -28,9 +28,9 @@ def SigmoidFocalLoss(
     '''
 
     p = inputs # 0 or 1
-    bce_loss = F.binary_cross_entropy(inputs, labels, reduction="none")
+    bce_loss = F.binary_cross_entropy(inputs, targets, reduction="none")
     
-    p_t = p * labels + (1 - p) * (1 - labels) 
+    p_t = p * targets + (1 - p) * (1 - tergets) 
     # nếu p và labels (0 or 1) trừng nhau --> dự đoán đúng --> p_t = 1
     # nếu p và labels (0 or 1) khác nhau --> dự đoán sai --> p_t = 0
     
