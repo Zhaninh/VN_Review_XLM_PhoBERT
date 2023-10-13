@@ -61,9 +61,9 @@ def clean_text(review):
 
 
 class preprocess():
-    def __init__(self):
+    def __init__(self, tokenizer):
         self.proj_path = get_proj_path()
-        self.tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-base")
+        self.tokenizer = AutoTokenizer.from_pretrained(tokenizer)
         self.segmenter = VnCoreNLP(os.path.join(self.proj_path, 'vncorenlp', 'VnCoreNLP-1.1.1.jar'), annotators="wseg", max_heap_size='-Xmx500m')
         self.feature = ['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam']
         
