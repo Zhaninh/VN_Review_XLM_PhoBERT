@@ -128,16 +128,16 @@ class CustomBERTModel(nn.Module):
         self.classifier = nn.Linear(self.model.config.hidden_size * 4, num_classification_labels)
         self.regressor = nn.Linear(self.model.config.hidden_size * 4, num_regression_neurons)
 
-    def forward(self, input_ids, attention_mask):
-        # Forward pass through BERT model
-        outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
-        outputs = self.dropout(outputs)
-        outputs_classifier = self.classifier(outputs)
-        outputs_regressor = self.regressor(outputs)
-        outputs_classifier = torch.sigmoid(outputs_classifier)
-        outputs_regressor = outputs_regressor.view(-1, 6, 5)
-        return outputs_classifier, outputs_regressor
+    def forward(self, input_ids=None, attention_mask=None):
+		outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
+		outputs = torch.cat((outputs[2][-1][:,0, ...],outputs[2][-2][:,0, ...], outputs[2][-3][:,0, ...], outputs[2][-4][:,0, ...]),-1)
+		outputs = self.dropout(outputs)
+		outputs_classifier = self.classifier(outputs)
+		outputs_regressor = self.regressor(outputs)
+		outputs_classifier = nn.Sigmoid()(outputs_classifier)
+		outputs_regressor = outputs_regressor.reshape(-1, 6, 5)
+		return outputs_classifier, outputs_regressor
+
 
 
 
