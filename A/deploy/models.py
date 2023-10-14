@@ -55,8 +55,7 @@ class CustomXLMModel(nn.Module):
     def forward(self, input_ids, attention_mask):
         # Forward pass through XLM model
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        # outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
-        outputs = torch.cat((outputs[2][-1][:,0, ...],outputs[2][-2][:,0, ...], outputs[2][-3][:,0, ...], outputs[2][-4][:,0, ...]),-1)
+        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
         outputs = self.dropout(outputs)
         outputs_classifier = self.classifier(outputs)
         outputs_regressor = self.regressor(outputs)
@@ -131,7 +130,6 @@ class CustomBERTModel(nn.Module):
 
     def forward(self, input_ids=None, attention_mask=None):
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        #outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
         outputs = torch.cat((outputs[2][-1][:,0, ...],outputs[2][-2][:,0, ...], outputs[2][-3][:,0, ...], outputs[2][-4][:,0, ...]),-1)
         outputs = self.dropout(outputs)
         outputs_classifier = self.classifier(outputs)
@@ -139,25 +137,3 @@ class CustomBERTModel(nn.Module):
         outputs_classifier = nn.Sigmoid()(outputs_classifier)
         outputs_regressor = outputs_regressor.reshape(-1, 6, 5)
         return outputs_classifier, outputs_regressor
-
-
-
-class EnsembleModel(nn.Module):
-    def __init__(self, models):
-        super(EnsembleModel, self).__init__()
-        self.models = nn.ModuleList(models)  # Danh sách các mô hình con
-
-    def forward(self, input_ids, attention_mask):
-        # Tạo danh sách các dự đoán từ các mô hình con
-        all_classifier_outputs = []
-        all_regressor_outputs = []
-
-        for model in self.models:
-            classifier_output, regressor_output = model(input_ids, attention_mask)
-            all_classifier_outputs.append(classifier_output)
-            all_regressor_outputs.append(regressor_output)
-
-        # Trung bình dự đoán từ tất cả các mô hình con
-        ensemble_classifier_output = torch.mean(torch.stack(all_classifier_outputs, dim=0), dim=0)
-        ensemble_regressor_output = torch.mean(torch.stack(all_regressor_outputs, dim=0), dim=0)
-        return ensemble_classifier_output, ensemble_regressor_output
