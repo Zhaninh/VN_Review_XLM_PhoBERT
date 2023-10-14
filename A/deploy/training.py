@@ -36,17 +36,11 @@ dataset = load_dataset('csv', data_files=data_files)
 # Switch ('xlm', 'bert', 'ensemble')
 switch = 'bert'
 if switch == 'bert':
-  # prep = preprocess("vinai/phobert-base")
-  prep = preprocess("xlm-roberta-base")
+  prep = preprocess("vinai/phobert-base")
   model = CustomBERTModel()
 elif switch == 'xlm':
   prep = preprocess("xlm-roberta-base")
   model = CustomXLMModel()
-elif switch == 'ensemble': # not yet
-  prep = preprocess("xlm-roberta-base")
-  model1 = CustomXLMModel()
-  model2 = CustomBERTModel()
-  model = EnsembleModel([model1, model2])
   
 
 tokenized_datasets = prep.run(dataset)
