@@ -43,7 +43,9 @@ elif switch == 'xlm':
   model = CustomXLMModel()
 elif switch == 'ensemble': # not yet
   prep = preprocess("xlm-roberta-base")
-  model = EnsembleModel()
+  model1 = CustomXLMModel()
+  model2 = CustomBERTModel()
+  model = EnsembleModel([model1, model2])
   
 
 tokenized_datasets = prep.run(dataset)
