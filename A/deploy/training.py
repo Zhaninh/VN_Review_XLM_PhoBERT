@@ -41,7 +41,7 @@ if switch == 'bert':
 elif switch == 'xlm':
   prep = preprocess("xlm-roberta-base")
   model = CustomXLMModel()
-elif switch == 'ensemble':
+elif switch == 'ensemble': # not yet
   prep = preprocess("xlm-roberta-base")
   model = EnsembleModel()
   
