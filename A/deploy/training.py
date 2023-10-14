@@ -36,7 +36,8 @@ dataset = load_dataset('csv', data_files=data_files)
 # Switch ('xlm', 'bert', 'ensemble')
 switch = 'ensemble'
 if switch == 'bert':
-  prep = preprocess("vinai/phobert-base")
+  # prep = preprocess("vinai/phobert-base")
+  prep = preprocess("xlm-roberta-base")
   model = CustomBERTModel()
 elif switch == 'xlm':
   prep = preprocess("xlm-roberta-base")
