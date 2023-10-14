@@ -157,7 +157,8 @@ class EnsembleModel(nn.Module):
             all_regressor_outputs.append(regressor_output)
 
         # Trung bình dự đoán từ tất cả các mô hình con
-        ensemble_classifier_output = torch.mean(torch.stack(all_classifier_outputs), dim=0)
-        ensemble_regressor_output = torch.mean(torch.stack(all_regressor_outputs), dim=0)
+        ensemble_classifier_output = torch.mean(torch.stack(all_classifier_outputs, dim=0), dim=0)
+	ensemble_regressor_output = torch.mean(torch.stack(all_regressor_outputs, dim=0), dim=0)
+
 
         return ensemble_classifier_output, ensemble_regressor_output
