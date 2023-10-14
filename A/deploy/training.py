@@ -33,9 +33,19 @@ data_files = {'train': trainset_path,
 
 dataset = load_dataset('csv', data_files=data_files)
 
-# Preprocess
-# prep = preprocess("xlm-roberta-base")
-prep = preprocess("vinai/phobert-base")
+# Switch ('xlm', 'bert', 'ensemble')
+switch = 'bert
+if switch == 'bert':
+  prep = preprocess("vinai/phobert-base")
+  model = CustomBERTModel()
+elif switch == 'xlm':
+  prep = preprocess("xlm-roberta-base")
+  model = CustomXLMModel()
+elif switch == 'ensemble':
+  prep = preprocess("xlm-roberta-base")
+  model = EnsembleModel()
+  
+
 tokenized_datasets = prep.run(dataset)
 
 train_dataloader = DataLoader(tokenized_datasets["train"], 
@@ -46,9 +56,6 @@ dev_dataloader = DataLoader(tokenized_datasets["dev"],
                              batch_size=32)
 
 # Model 
-#model = CustomXLMModel()
-model = CustomBERTModel()
-
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 model.to(device)
 
