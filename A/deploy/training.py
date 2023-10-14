@@ -34,7 +34,7 @@ data_files = {'train': trainset_path,
 dataset = load_dataset('csv', data_files=data_files)
 
 # Switch ('xlm', 'bert', 'ensemble')
-switch = 'bert
+switch = 'ensemble'
 if switch == 'bert':
   prep = preprocess("vinai/phobert-base")
   model = CustomBERTModel()
