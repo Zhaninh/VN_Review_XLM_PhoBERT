@@ -40,8 +40,8 @@ def save_split_dir(prep_train_df, prep_test_df):
 
 def get_train_dev_path():
     A_dir = get_proj_path()
-    trainset_dir = os.path.join(A_dir, "datasets", "data_split", "trainset.csv")
-    devset_dir = os.path.join(A_dir, "datasets", "data_split", "testset.csv") 
+    trainset_dir = os.path.join(A_dir, "datasets", "data_split", "trainset_1.csv")
+    devset_dir = os.path.join(A_dir, "datasets", "data_split", "testset_1.csv") 
     return trainset_dir, devset_dir
 
 
