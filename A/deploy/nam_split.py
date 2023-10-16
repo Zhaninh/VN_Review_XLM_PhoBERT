@@ -1,106 +1,81 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import re
 import os
-from transformers import AutoTokenizer
-from vncorenlp import VnCoreNLP
-from datasets import DatasetDict, Dataset
-from helpers import get_proj_path
 
+from sklearn.model_selection import train_test_split
+from iterstrat.ml_stratifiers import MultilabelStratifiedKFold
+import nbimporter
+from utlis import save_split_dir
 
-def rm_special_keys(review):
-    special_character = re.compile("�+")
-    return special_character.sub(r'', review)
+class Split():
 
+    '''
+    INPUT: 
+        Data path, 
+        n_split = (
+            2: 50% - 50% (Train - test),
+            3: 60% - 40%,
+            5: 80% - 20%
+        )
 
-def rm_punctuation(review):
-    punctuation = re.compile(r"[!#$%&()*+;<=>?@[\]^_`{|}~]+")
-    return punctuation.sub(r"", review)
+    OUTPUT: 80-10-10 TRAIN-DEV-TEST
+        X_train, y_train, X_val, y_val, X_test, y_test
+    '''
 
+    def __init__(self, data_path , n_split):
+        self.data_path = data_path
+        self.n_split = n_split
 
-def rm_emoji(review):
-    emoji_pattern = re.compile("["
-                               u"\U0001F600-\U0001F64F"  # Emoticons
-                               u"\U0001F300-\U0001F5FF"  # Symbols & Pictographs
-                               u"\U0001F680-\U0001F6FF"  # Transport & Map Symbols
-                               u"\U0001F700-\U0001F77F"  # Alchemical Symbols
-                               u"\U0001F780-\U0001F7FF"  # Geometric Shapes Extended
-                               u"\U0001F800-\U0001F8FF"  # Supplemental Arrows-C
-                               u"\U0001F900-\U0001F9FF"  # Supplemental Symbols and Pictographs
-                               u"\U0001FA00-\U0001FA6F"  # Chess Symbols
-                               u"\U0001FA70-\U0001FAFF"  # Symbols and Pictographs Extended-A
-                               u"\U0001F004-\U0001F0CF"  # Mahjong Tiles
-                               u"\U0001F170-\U0001F251"  # Enclosed Characters
-                               u"\U0001F300-\U0001F9F9"  # Additional symbols and emojis
-                               u"\U00002702-\U000027B0"  # Dingbats
-                               u"\U000024C2-\U0001F251"
-                               "]+", flags=re.UNICODE)
-    text = emoji_pattern.sub(r'', review)
-    return text
+    def preprocess_data_format(self):
+        labels = ['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam']
+        data = pd.read_csv(self.data_path)
+        X = data.drop(columns=labels)
+        y = data[labels]
 
+        X = X.to_numpy()
+        y = y.to_numpy()
 
-def rm_urls_paths(text):
-    # Define a regex pattern to match both URLs and file paths
-    url_pattern = r'https?[:]//\S+|www\.\S+'
-    path_pattern = r'(?:(?:[a-z]:\\|\\\\|/)[^\s|/]+(?:/[^\s|/]+)*)'
-    combined_pattern = f'({url_pattern})|({path_pattern})'
-    cleaned_text = re.sub(combined_pattern, '', text)
-    return cleaned_text
+        return X, y
 
+    def count_label_distribution(self, y):
+        label_counts = pd.DataFrame(data=y, columns=['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam'])
+        label_distribution = label_counts.apply(lambda x: x.value_counts()).fillna(0).astype(int)
+        return label_distribution
 
-def normalize_annotatation(text):
-    khach_san = "\bkhach san ?|\bksan ?|\bks ?"
-    return re.sub("\bnv ?", "nhân viên", re.sub(khach_san, "khách sạn", text))
+    def split(self, X, y):
+        mskf = MultilabelStratifiedKFold(n_splits=self.n_split, shuffle=True, random_state=0)
+        for train_index, test_index in mskf.split(X, y):
+            X_train, X_test = X[train_index], X[test_index]
+            y_train, y_test = y[train_index], y[test_index]
+        
+        
 
+        return X_train, y_train, X_test, y_test
 
-def rm_escape_characters(text):
-    cleaned_text = text.replace('\r', '').replace('\n', '').replace('\t', '').replace('\q', '').replace('\w',
-                                                                                                        '').replace(
-        '\s', '')
-    return cleaned_text
+    def test_distribution(self):
+        X, y = self.preprocess_data_format()
+        X_train, y_train, X_test, y_test = self.split(X, y)
 
+        train_label_distribution = self.count_label_distribution(y_train)
+        test_label_distribution = self.count_label_distribution(y_test)
 
-def clean_text(review):
-    cleaned_review = {"Review": rm_escape_characters(
-        normalize_annotatation(rm_special_keys(rm_punctuation(rm_emoji(rm_urls_paths(review['Review'].lower()))))))}
-    return cleaned_review
+        return X_train, y_train, X_test, y_test, train_label_distribution, test_label_distribution
 
+    def run(self):
+        X, y = self.preprocess_data_format()
+        X_train, y_train, X_test, y_test = self.split(X, y)
 
-class preprocess():
-    def __init__(self):
-        self.proj_path = get_proj_path()
-        self.tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-base")
-        self.segmenter = VnCoreNLP(os.path.join(self.proj_path, 'vncorenlp', 'VnCoreNLP-1.1.1.jar'), annotators="wseg",
-                                   max_heap_size='-Xmx500m')
-        self.feature = ['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam']
+        train_df = pd.DataFrame(data={'Review': X_train[:, 0]})
+        train_df = pd.concat([train_df, pd.DataFrame(data=y_train, columns=['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam'])], axis=1)
 
-    def segment(self, df):
-        return {"Segment": " ".join([" ".join(sen) for sen in self.segmenter.tokenize(df["Review"])])}
+        test_df = pd.DataFrame(data={'Review': X_test[:, 0]})
+        test_df = pd.concat([test_df, pd.DataFrame(data=y_test, columns=['giai_tri', 'luu_tru', 'nha_hang', 'an_uong', 'di_chuyen', 'mua_sam'])], axis=1)           
 
-    def tokenize(self, df):
-        return self.tokenizer(df["Segment"], truncation=True, padding=True, max_length=165)
+        return train_df, test_df
 
-    def label(self, example):
-        return {'labels_regressor': np.array([example[i] for i in self.feature]),
-                'labels_classifier': np.array([int(example[i] != 0) for i in self.feature])}
-
-    def rm_stopwords(self, text, remove_stopwords=True):
-        stopword_path = os.path.join(self.proj_path, "vn_stopwords", "vietnamese-stopwords-dash.txt")
-        with open(stopword_path, 'r', encoding='utf-8') as file:
-            stop_words = set(file.read().splitlines())
-        words = text['Review'].split()
-        if remove_stopwords:
-            words = [word for word in words if word.lower() not in stop_words]
-        cleaned_text = ' '.join(words)
-        return {"Review": cleaned_text}
-
-    def run(self, dataset):
-        dataset = dataset.map(clean_text)
-        dataset = dataset.map(self.segment)
-        dataset = dataset.map(self.tokenize, batched=True)
-        dataset = dataset.map(self.label)
-        dataset = dataset.map(self.rm_stopwords)
-        dataset.set_format("torch")
-
-        return dataset
+if __name__ == "__main__":
+    path = r"D:\FSoft\Review_Ana\Dream_Tim\A\datasets\data_original\[MAIN]-combined-data-v4.csv"
+    split = Split(path, 5)
+    train_df, test_df = split.run()
+    save_split_dir(train_df, test_df)
+    print("Done")
