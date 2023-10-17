@@ -1,5 +1,12 @@
 # Review_analysis_DreamTim
 
+## Table of contents
+1. [Overview](#overview)
+    - [Project Purpose](#project-purpose)
+    - [Benefits to Stakeholders](#benefits-to-stakeholders)
+    - [How the Project Works](#how-the-project-works)
+    - [Input and Output](#input-and-output)
+
 ## Overview
 
 ### Purpose of the Project
