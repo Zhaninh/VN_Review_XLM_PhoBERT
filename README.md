@@ -2,8 +2,9 @@
 
 ## Table of contents
 1. [Overview](#overview)
-    - [Project](#project)
-    - [How the Project Works](#how-the-project-works)
+    - [Project Purpose](#project-purpose)
+    - [Benefits](#benefits)
+    - [Workflow](#workflow)
     - [Input and Output](#input-and-output)
 
 ## Overview
