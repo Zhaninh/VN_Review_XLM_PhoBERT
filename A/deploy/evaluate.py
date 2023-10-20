@@ -24,7 +24,7 @@ class Evaluation:
         data_files = {'test': testset_path}
         dataset = load_dataset('csv', data_files=data_files)
 
-        # Switch ('xlm', 'bert', 'ensemble')
+        # Switch ('xlm', 'bert')
         switch = 'xlm'
         if switch == 'bert':
           prep = preprocess("vinai/phobert-base")
@@ -44,8 +44,8 @@ class Evaluation:
                                       batch_size=32, 
                                       shuffle=True)
 
-        if get_weight_path() is not None:
-            model.load_state_dict(torch.load(get_weight_path(), map_location=torch.device(device)))
+        if get_weight_path(switch) is not None:
+            model.load_state_dict(torch.load(get_weight_path(switch), map_location=torch.device(device)))
             model.to(device)
         else:
             print("No weights.")
