@@ -23,15 +23,21 @@ class Evaluation:
         data_files = {'test': testset_path}
         dataset = load_dataset('csv', data_files=data_files)
 
-        # Preprocess
-        prep = preprocess()
+        # Switch ('xlm', 'bert', 'ensemble')
+        switch = 'xlm'
+        if switch == 'bert':
+          prep = preprocess("vinai/phobert-base")
+          model = CustomBERTModel()
+        elif switch == 'xlm':
+          prep = preprocess("xlm-roberta-base")
+          model = CustomXLMModel()
+            
         tokenized_datasets = prep.run(dataset)
 
         test_dataloader = DataLoader(tokenized_datasets["test"], 
                                       batch_size=32, 
                                       shuffle=True)
 
-        model = CustomXLMModel()
         if get_weight_path() is not None:
             model.load_state_dict(torch.load(get_weight_path(), map_location=torch.device(device)))
             model.to(device)
