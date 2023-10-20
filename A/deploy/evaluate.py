@@ -37,7 +37,7 @@ class Evaluation:
         tokenized_datasets = prep.run(dataset)
         prep_end = time.time()
         print(30*"-")
-        print("Preprocess time:", prep_end - prep_start)
+        print("Preprocess time:", prep_end - prep_start,"s")
         print(30*"-")
 
         test_dataloader = DataLoader(tokenized_datasets["test"], 
@@ -90,7 +90,7 @@ class Evaluation:
         Final_score = (F1_score * R2_score).sum() / 6
 
         print("\n", 30*"-")
-        print("Evaluate time:", eval_end - eval_start)
+        print("Evaluate time:", eval_end - eval_start,"s")
         print("Test Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
         print("Acc", val_acc.compute())
         print("F1_score", F1_score)
