@@ -32,8 +32,13 @@ class Evaluation:
         elif switch == 'xlm':
           prep = preprocess("xlm-roberta-base")
           model = CustomXLMModel()
-            
+
+        prep_start = time.time()
         tokenized_datasets = prep.run(dataset)
+        prep_end = time.time()
+        print(30*"-")
+        print("Preprocess time:", prep_end - prep_start)
+        print(30*"-")
 
         test_dataloader = DataLoader(tokenized_datasets["test"], 
                                       batch_size=32, 
