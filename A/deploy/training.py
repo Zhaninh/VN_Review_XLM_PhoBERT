@@ -150,7 +150,7 @@ for epoch in range(num_epochs):
     
     if Final_score > best_score:
         best_score = Final_score
-        weight_path = get_weight_path(switch)
+        weight_path = os.path.dirname(get_weight_path(switch))
         save_model_weights(model, weight_path)
 
     print("\n",40*"-")
