@@ -47,7 +47,7 @@ prep_start = time.time()
 tokenized_datasets = prep.run(dataset)
 prep_end = time.time()
 print(30*"-")
-print("Preprocess time:", prep_end - prep_start,"s")
+print(ff"Preprocess time: {prep_end - prep_start}s")
 print(30*"-")
 
 train_dataloader = DataLoader(tokenized_datasets["train"], 
@@ -91,22 +91,7 @@ for epoch in range(num_epochs):
         outputs_classifier, outputs_regressor = model(**inputs)
 
         # Calculate the losses
-        loss1 = SigmoidFocalLoss(outputs_classifier, batch['labels_classifier'].to(device).float(), alpha=-1, gamma=1,reduction='mean')
-        loss2 = loss_softmax(outputs_regressor, batch['labels_regressor'].to(device).float(), device)
-
-        loss = 10*loss1 + loss2
-
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()       
-        lr_scheduler.step()
-        pb_train.update(1)
-        pb_train.set_postfix(loss_classifier=loss1.item(), loss_regressor=loss2.item(), loss=loss.item())
-        train_loss += loss.item() / len(train_dataloader)
-      
-    train_end = time.time()
-    print("\n\n",50*"-")
-    print("Train Loss:", train_loss, "Train time:", train_end - train_start,"s")
+        f"Train time: {train_end - train_start}s")
     print(50*"-","\n")
     
     # Evaluate
@@ -154,7 +139,7 @@ for epoch in range(num_epochs):
         save_model_weights(model, weight_path)
 
     print("\n",40*"-")
-    print("- Dev evaluate time:", eval_end - eval_start,"s")
+    print(f"- Dev evaluate time: {eval_end - eval_start}s")
     print("- Dev Loss:", val_loss.compute(), "; Loss Classifier:", val_loss_classifier.compute(), "; Loss Regressor:", val_loss_regressor.compute())
     print("- Acc", val_acc.compute())
     print("- F1_score", F1_score)
@@ -164,5 +149,5 @@ for epoch in range(num_epochs):
     print(40*"-", "\n")
 
 run_end = time.time()
-print("RUN TIME:", run_end - run_start,"s")
+print(f"RUN TIME: {run_end - run_start}s")
 print(30*"-", "\n")
