@@ -48,7 +48,7 @@ prep_start = time.time()
 tokenized_datasets = prep.run(dataset)
 prep_end = time.time()
 print(30*"-")
-print(ff"Preprocess time: {prep_end - prep_start}s")
+print(f"Preprocess time: {prep_end - prep_start}s")
 print(30*"-")
 
 train_dataloader = DataLoader(tokenized_datasets["train"], 
@@ -92,7 +92,22 @@ for epoch in range(num_epochs):
         outputs_classifier, outputs_regressor = model(**inputs)
 
         # Calculate the losses
-        f"Train time: {train_end - train_start}s")
+        loss1 = SigmoidFocalLoss(outputs_classifier, batch['labels_classifier'].to(device).float(), alpha=-1, gamma=1,
+                                 reduction='mean')
+        loss2 = loss_softmax(outputs_regressor, batch['labels_regressor'].to(device).float(), device)
+
+        loss = 10 * loss1 + loss2
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        lr_scheduler.step()
+        pb_train.update(1)
+        pb_train.set_postfix(loss_classifier=loss1.item(), loss_regressor=loss2.item(), loss=loss.item())
+        train_loss += loss.item() / len(train_dataloader)
+    train_end = time.time()
+    print("\n",50*"-")
+    print("Train Loss:", train_loss, f"Train time: {train_end - train_start}")
     print(50*"-","\n")
     
     # Evaluate
