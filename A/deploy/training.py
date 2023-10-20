@@ -154,7 +154,7 @@ for epoch in range(num_epochs):
         save_model_weights(model, weight_path)
 
     print("\n",40*"-")
-    print("- Evaluate time:", eval_end - eval_start,"s")
+    print("- Dev evaluate time:", eval_end - eval_start,"s")
     print("- Dev Loss:", val_loss.compute(), "; Loss Classifier:", val_loss_classifier.compute(), "; Loss Regressor:", val_loss_regressor.compute())
     print("- Acc", val_acc.compute())
     print("- F1_score", F1_score)
