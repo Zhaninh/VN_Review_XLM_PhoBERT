@@ -132,7 +132,8 @@ class CustomBERTModel(nn.Module):
 
     def forward(self, input_ids=None, attention_mask=None):
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        outputs = torch.cat((outputs[2][-1][:,0, ...],outputs[2][-2][:,0, ...], outputs[2][-3][:,0, ...], outputs[2][-4][:,0, ...]),-1)
+        outputs = torch.cat((outputs[2][-1][:,0, ...],outputs[2][-2][:,0, ...], 
+                             outputs[2][-3][:,0, ...], outputs[2][-4][:,0, ...]),-1)
         outputs = self.dropout(outputs)
         outputs_classifier = self.classifier(outputs)
         outputs_regressor = self.regressor(outputs)
