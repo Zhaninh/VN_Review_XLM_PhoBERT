@@ -73,16 +73,15 @@ pb_train = tqdm(range(num_training_steps))
 pb_dev = tqdm(range(num_epochs*len(dev_dataloader)))
 best_score = -1
 
-
+run_start = time.time()
 for epoch in range(num_epochs):
     train_loss = 0
     val_loss = 0
-    t1 = time.time()
     
     # Train
     model.train()
+    train_start = time.time()
     for batch in train_dataloader:
-        train_start = time.time()
         inputs = {'input_ids': batch['input_ids'].to(device),
                   'attention_mask': batch['attention_mask'].to(device)}
         outputs_classifier, outputs_regressor = model(**inputs)
@@ -100,7 +99,8 @@ for epoch in range(num_epochs):
         pb_train.update(1)
         pb_train.set_postfix(loss_classifier=loss1.item(), loss_regressor=loss2.item(), loss=loss.item())
         train_loss += loss.item() / len(train_dataloader)
-        train_end = time.time()
+      
+    train_end = time.time()
     print("\n", 30*"-")
     print("Train Loss:", train_loss, "Train time:", train_end - train_start, "\n")
     print(30*"-", "\n")
@@ -116,8 +116,8 @@ for epoch in range(num_epochs):
     correct = 0
     result = None
     model.eval()
+    eval_start = time.time()
     for batch in dev_dataloader:
-        eval_start = time.time()
         inputs = {'input_ids': batch['input_ids'].to(device),
                 'attention_mask': batch['attention_mask'].to(device)}
         with torch.no_grad():
@@ -138,8 +138,8 @@ for epoch in range(num_epochs):
             val_f1_score.update(np.round(outputs), y_true)
             val_r2_score.update(np.round(outputs), y_true)
             pb_dev.update(1)
-        eval_end = time.time()
-            
+    
+    eval_end = time.time()        
     F1_score = val_f1_score.compute()
     R2_score = val_r2_score.compute()
     Final_score = (F1_score * R2_score).sum()*1/6
@@ -158,3 +158,6 @@ for epoch in range(num_epochs):
     print("Final_score", Final_score)
     print("Best_score", best_score)
     print(30*"-", "\n")
+
+run_end = time.time()
+print("\nRun time:", run_end - run_start)
