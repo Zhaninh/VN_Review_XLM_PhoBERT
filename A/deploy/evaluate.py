@@ -8,7 +8,7 @@ from datasets import load_dataset
 
 from helpers import get_test_path, get_weight_path, pred_to_label
 from preprocessing import preprocess
-from models import CustomXLMModel, CustomXLMModel_v2
+from models import CustomXLMModel, CustomBERTModel
 from loss import *
 from metrics import *
 
