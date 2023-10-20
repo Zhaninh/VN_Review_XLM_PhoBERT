@@ -47,7 +47,7 @@ prep_start = time.time()
 tokenized_datasets = prep.run(dataset)
 prep_end = time.time()
 print(30*"-")
-print("Preprocess time:", prep_end - prep_start)
+print("Preprocess time:", prep_end - prep_start,"s")
 print(30*"-")
 
 train_dataloader = DataLoader(tokenized_datasets["train"], 
@@ -106,7 +106,7 @@ for epoch in range(num_epochs):
       
     train_end = time.time()
     print("\n\n",50*"-")
-    print("Train Loss:", train_loss, "Train time:", train_end - train_start)
+    print("Train Loss:", train_loss, "Train time:", train_end - train_start,"s")
     print(50*"-","\n")
     
     # Evaluate
@@ -154,7 +154,7 @@ for epoch in range(num_epochs):
         save_model_weights(model, weight_path)
 
     print("\n",40*"-")
-    print("- Evaluat time:", eval_end - eval_start)
+    print("- Evaluat time:", eval_end - eval_start,"s")
     print("- Dev Loss:", val_loss.compute(), "; Loss Classifier:", val_loss_classifier.compute(), "; Loss Regressor:", val_loss_regressor.compute())
     print("- Acc", val_acc.compute())
     print("- F1_score", F1_score)
@@ -165,4 +165,4 @@ for epoch in range(num_epochs):
 
 run_end = time.time()
 print("\n", 30*"-")
-print("RUN TIME:", run_end - run_start)
+print("RUN TIME:", run_end - run_start,"s")
