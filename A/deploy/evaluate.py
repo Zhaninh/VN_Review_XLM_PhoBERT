@@ -5,6 +5,7 @@ import numpy as np
 import torch
 import random
 from datasets import load_dataset
+import time
 
 from helpers import get_test_path, get_weight_path, pred_to_label
 from preprocessing import preprocess
@@ -56,6 +57,7 @@ class Evaluation:
         result = None
 
         model.eval()
+        eval_start = time.time()
         for batch in tqdm(test_dataloader, desc="Evaluating"):
             inputs = {'input_ids': batch['input_ids'].to(device),
                       'attention_mask': batch['attention_mask'].to(device)}
@@ -77,15 +79,19 @@ class Evaluation:
                 val_f1_score.update(np.round(outputs), y_true)
                 val_r2_score.update(np.round(outputs), y_true)
 
+        eval_end = time.time()
         F1_score = val_f1_score.compute()
         R2_score = val_r2_score.compute()
         Final_score = (F1_score * R2_score).sum() / 6
 
+        print("\n", 30*"-")
+        print("Evaluate time:", eval_end - eval_start)
         print("Test Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
         print("Acc", val_acc.compute())
         print("F1_score", F1_score)
         print("R2_score", R2_score)
         print("Final_score", Final_score)
+        print(30*"-", "\n")
 
 
 if __name__ == "__main__":
