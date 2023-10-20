@@ -105,9 +105,9 @@ for epoch in range(num_epochs):
         train_loss += loss.item() / len(train_dataloader)
       
     train_end = time.time()
-    print("\n", 30*"-")
-    print("Train Loss:", train_loss, "Train time:", train_end - train_start, "\n")
-    print(30*"-", "\n")
+    print("\n\n",50*"-")
+    print("Train Loss:", train_loss, "Train time:", train_end - train_start)
+    print(50*"-","\n")
     
     # Evaluate
     val_loss = ScalarMetric()
@@ -153,16 +153,16 @@ for epoch in range(num_epochs):
         weight_path = r'/content/drive/MyDrive/Review_analysis_training/weights'
         save_model_weights(model, weight_path)
 
-    print("\n",30*"-")
-    print("Evaluat time:", eval_end - eval_start)
-    print("Dev Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
-    print("Acc", val_acc.compute())
-    print("F1_score", F1_score)
-    print("R2_score", R2_score)
-    print("Final_score", Final_score)
-    print("Best_score", best_score)
-    print(30*"-", "\n")
+    print("\n",40*"-")
+    print("- Evaluat time:", eval_end - eval_start)
+    print("- Dev Loss:", val_loss.compute(), "; Loss Classifier:", val_loss_classifier.compute(), "; Loss Regressor:", val_loss_regressor.compute())
+    print("- Acc", val_acc.compute())
+    print("- F1_score", F1_score)
+    print("- R2_score", R2_score)
+    print("- Final_score", Final_score)
+    print(">> BEST SCORE", best_score)
+    print(0*"-", "\n")
 
 run_end = time.time()
 print("\n", 30*"-")
-print("Run time:", run_end - run_start)
+print("RUN TIME:", run_end - run_start)
