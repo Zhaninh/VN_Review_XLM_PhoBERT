@@ -53,9 +53,14 @@ def get_test_path():
 
 
 
-def get_weight_path():
-    weights_dir = r'/content/drive/MyDrive/Review_analysis_training/weights'
-    
+def get_weight_path(model):
+    model = model.lower()
+    if model == 'xlm':
+	weights_dir = r'/content/drive/MyDrive/Review_analysis_training/weights/XLM'
+    elif model == 'bert':
+	weights_dir = r'/content/drive/MyDrive/Review_analysis_training/weights/BERT'
+    else:
+	return print("Model not found!")
     # Get a list of all files in the "weights" directory with the appropriate filename format (e.g. *.h5 if you use Keras)
     weight_files = glob.glob(os.path.join(weights_dir, '*.pt'))
 
