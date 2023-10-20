@@ -161,7 +161,7 @@ for epoch in range(num_epochs):
     print("- R2_score", R2_score)
     print("- Final_score", Final_score)
     print(">> BEST SCORE", best_score)
-    print(0*"-", "\n")
+    print(40*"-", "\n")
 
 run_end = time.time()
 print("\n", 30*"-")
