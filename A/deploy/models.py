@@ -55,7 +55,8 @@ class CustomXLMModel(nn.Module):
     def forward(self, input_ids, attention_mask):
         # Forward pass through XLM model
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
+        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], 
+                             outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
         outputs = self.dropout(outputs)
         outputs_classifier = self.classifier(outputs)
         outputs_regressor = self.regressor(outputs)
@@ -66,7 +67,7 @@ class CustomXLMModel(nn.Module):
 
 
 
-class CustomXLMModel_v2(nn.Module):
+class CustomXLMModel_before(nn.Module):
     def __init__(self, num_classification_labels=6, num_regression_neurons=30):
         super(CustomXLMModel_v2, self).__init__()
         # Load a pre-trained XLM model
@@ -94,7 +95,8 @@ class CustomXLMModel_v2(nn.Module):
     def forward(self, input_ids, attention_mask):
         # Forward pass through XLM model
         outputs = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
+        outputs = torch.cat((outputs.hidden_states[-1][:, 0, ...], outputs.hidden_states[-2][:, 0, ...], 
+                             outputs.hidden_states[-3][:, 0, ...], outputs.hidden_states[-4][:, 0, ...]), -1)
             
         # Apply layer 1
         outputs = self.dropout1(outputs)
