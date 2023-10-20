@@ -160,4 +160,5 @@ for epoch in range(num_epochs):
     print(30*"-", "\n")
 
 run_end = time.time()
-print("\nRun time:", run_end - run_start)
+print("\n", 30*"-")
+print("Run time:", run_end - run_start)
