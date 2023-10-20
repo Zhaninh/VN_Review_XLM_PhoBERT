@@ -8,7 +8,7 @@ import random
 from datasets import load_dataset
 import time
 
-from helpers import get_train_dev_path, pred_to_label, save_model_weights
+from helpers import get_train_dev_path, pred_to_label, save_model_weights, get_weight_path
 from preprocessing import preprocess
 from models import CustomXLMModel, CustomBERTModel
 from metrics import *
@@ -150,7 +150,7 @@ for epoch in range(num_epochs):
     
     if Final_score > best_score:
         best_score = Final_score
-        weight_path = r'/content/drive/MyDrive/Review_analysis_training/weights'
+        weight_path = get_weight_path(switch)
         save_model_weights(model, weight_path)
 
     print("\n",40*"-")
