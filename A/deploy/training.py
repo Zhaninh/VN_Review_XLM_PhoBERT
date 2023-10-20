@@ -6,6 +6,7 @@ import numpy as np
 import torch
 import random
 from datasets import load_dataset
+import time
 
 from helpers import get_train_dev_path, pred_to_label, save_model_weights
 from preprocessing import preprocess
@@ -72,13 +73,16 @@ pb_train = tqdm(range(num_training_steps))
 pb_dev = tqdm(range(num_epochs*len(dev_dataloader)))
 best_score = -1
 
+
 for epoch in range(num_epochs):
     train_loss = 0
     val_loss = 0
+    t1 = time.time()
     
     # Train
     model.train()
     for batch in train_dataloader:
+        train_start = time.time()
         inputs = {'input_ids': batch['input_ids'].to(device),
                   'attention_mask': batch['attention_mask'].to(device)}
         outputs_classifier, outputs_regressor = model(**inputs)
@@ -96,7 +100,10 @@ for epoch in range(num_epochs):
         pb_train.update(1)
         pb_train.set_postfix(loss_classifier=loss1.item(), loss_regressor=loss2.item(), loss=loss.item())
         train_loss += loss.item() / len(train_dataloader)
-    print("Train Loss:", train_loss)
+        train_end = time.time()
+    print("\n", 30*"-")
+    print("Train Loss:", train_loss, "Train time:", train_end - train_start, "\n")
+    print(30*"-", "\n")
     
     # Evaluate
     val_loss = ScalarMetric()
@@ -110,6 +117,7 @@ for epoch in range(num_epochs):
     result = None
     model.eval()
     for batch in dev_dataloader:
+        eval_start = time.time()
         inputs = {'input_ids': batch['input_ids'].to(device),
                 'attention_mask': batch['attention_mask'].to(device)}
         with torch.no_grad():
@@ -130,6 +138,7 @@ for epoch in range(num_epochs):
             val_f1_score.update(np.round(outputs), y_true)
             val_r2_score.update(np.round(outputs), y_true)
             pb_dev.update(1)
+        eval_end = time.time()
             
     F1_score = val_f1_score.compute()
     R2_score = val_r2_score.compute()
@@ -139,10 +148,13 @@ for epoch in range(num_epochs):
         best_score = Final_score
         weight_path = r'/content/drive/MyDrive/Review_analysis_training/weights'
         save_model_weights(model, weight_path)
-        
+
+    print("\n",30*"-")
+    print("Evaluat time:", eval_end - eval_start)
     print("Dev Loss:", val_loss.compute(), "Loss Classifier:", val_loss_classifier.compute(), "Loss Regressor:", val_loss_regressor.compute())
     print("Acc", val_acc.compute())
     print("F1_score", F1_score)
     print("R2_score", R2_score)
     print("Final_score", Final_score)
     print("Best_score", best_score)
+    print(30*"-", "\n")
