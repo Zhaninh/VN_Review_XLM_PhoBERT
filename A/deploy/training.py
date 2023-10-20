@@ -164,5 +164,5 @@ for epoch in range(num_epochs):
     print(40*"-", "\n")
 
 run_end = time.time()
-print("\n", 30*"-")
 print("RUN TIME:", run_end - run_start,"s")
+print(30*"-", "\n")
