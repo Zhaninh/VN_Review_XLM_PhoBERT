@@ -1,4 +1,4 @@
-<div align="center" style="font-size: 24px;">
+<div align="center" style="font-size: 100px;">
   <strong>Review_analysis_DreamTim</strong>
 </div>
 
