@@ -85,8 +85,8 @@ https://localhost8000.com
 4. [Testing on application](./A/deploy/app.py)
 
 ## Weights
-- Weight of XLM in [here]([https://drive.google.com/drive/folders/16kqSoiDPhFGu3u6fuIq2Eaz1pZ64D-BU?usp=sharing](https://drive.google.com/file/d/15yhqZeTRkAXsnuZkB1yxH6rH6iUNgAuV/view?usp=sharing))
-- Weight of PhoBERT in [here]([https://drive.google.com/drive/folders/17504ScyS91f8T8fzS70yU40An0odxluA?usp=sharing](https://drive.google.com/file/d/17CHUy43r29bc8azu9p-zT85CAu-V5QKa/view?usp=sharing)https://drive.google.com/file/d/17CHUy43r29bc8azu9p-zT85CAu-V5QKa/view?usp=sharing) 
+- Weight of XLM in [here](https://drive.google.com/file/d/15yhqZeTRkAXsnuZkB1yxH6rH6iUNgAuV/view?usp=sharing)
+- Weight of PhoBERT in [here](https://drive.google.com/file/d/17CHUy43r29bc8azu9p-zT85CAu-V5QKa/view?usp=sharing)
 
 ## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
