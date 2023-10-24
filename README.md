@@ -58,7 +58,7 @@ pip install -r requirements.txt
 - Label the data for regression and classification tasks.
 - Remove Vietnamese stopwords from the text.
 
-##
+##   
 
 ## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
