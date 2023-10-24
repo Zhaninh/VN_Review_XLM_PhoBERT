@@ -35,19 +35,19 @@ This project harnesses the potential of textual data, translating it into action
 
 ## Installation
 ``pip install transformers``
-pip install torch
-pip install vncorenlp
-pip install tqdm
-pip install numpy
-pip install pandas
-pip install matplotlib
-pip install re
-pip install scikit-learn
-pip install iterstrat
-pip install nbimporter
-pip install fastapi
-pip install pydantic
-pip install Jinja2
+``pip install torch``
+``pip install vncorenlp``
+``pip install tqdm``
+``pip install numpy``
+``pip install pandas``
+``pip install matplotlib``
+``pip install re``
+``pip install scikit-learn``
+``pip install iterstrat``
+``pip install nbimporter``
+``pip install fastapi``
+``pip install pydantic``
+``pip install Jinja2``
 ``pip install statsmodels``
 
 
