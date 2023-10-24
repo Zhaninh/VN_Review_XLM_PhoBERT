@@ -37,5 +37,3 @@ This project harnesses the potential of textual data, translating it into action
 
 ## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
-
-Contact: anaaroncohen@gmail.com
