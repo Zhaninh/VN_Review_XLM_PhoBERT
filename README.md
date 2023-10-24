@@ -43,7 +43,7 @@ pip install -r requirements.txt
 ```
 
 ## Preprocess
-Text Cleaning:
+**Text Cleaning:**
 - Remove special characters from the text.
 - Remove punctuation from the text.
 - Remove emojis from the text.
@@ -52,7 +52,7 @@ Text Cleaning:
 - Remove escape characters such as line breaks, tabs, and carriage returns.
 - Combine the above cleaning methods to create a cleaned review.
   
-Segmentation and Tokenization:
+**Segmentation and Tokenization:**
 - Segment the text using VnCoreNLP.
 - Tokenize the segmented text using a specified tokenizer.
 - Label the data for regression and classification tasks.
