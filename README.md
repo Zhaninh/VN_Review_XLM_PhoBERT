@@ -30,4 +30,6 @@ This project harnesses the potential of textual data, translating it into action
 
 
 ## FastAPI LocalHost Web Application 
-![Sample Image](images/Web.png)
+!![](images/Web.png)
+
+
