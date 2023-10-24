@@ -59,5 +59,6 @@ pip install -r requirements.txt
 - Remove Vietnamese stopwords from the text.
 
 
+
 ## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
