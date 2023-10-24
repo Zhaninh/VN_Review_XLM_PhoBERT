@@ -23,7 +23,7 @@
 
 **Workflow:**
 
-- The project follows a structured workflow, including data preprocessing, model selection, training, evaluation, and saving. Users can leverage the saved model for predictions based on their input text data.
+- The project follows a structured workflow, including data preprocessing, model selection, training, evaluation, saving, and testing. Users can leverage the saved model for predictions based on their input text data.
 
 **Input and Output:**
 
