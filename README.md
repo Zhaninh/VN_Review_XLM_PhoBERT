@@ -6,6 +6,7 @@
     - [Benefits](#benefits)
     - [Workflow](#workflow)
     - [Input and Output](#input-and-output)
+2. [](#)
 
 ## Overview
 
@@ -26,3 +27,6 @@
 - The primary input is a dataset containing text data, which the project categorizes and rates based on various aspects. The output includes aspect categorization and ratings derived from the text content.
 
 This project harnesses the potential of textual data, translating it into actionable insights that benefit both individuals and businesses.
+
+
+## FastAPI LocalHost Web Application 
