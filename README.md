@@ -10,7 +10,6 @@
 - [Installation](#installation)
 - [FastAPI LocalHost Applicaiton](#fastapi-localhost-application)
 
-#  
 
 ## Overview
 
@@ -33,7 +32,6 @@
 
 This project harnesses the potential of textual data, translating it into actionable insights that benefit both individuals and businesses.
 
-##   
 
 ## Installation
 ```bash
@@ -43,8 +41,6 @@ cd ./A/deploy
 
 pip install -r requirements.txt
 ```
-
-##   
 
 ## Preprocessing
 **Text Cleaning:**
@@ -62,7 +58,6 @@ pip install -r requirements.txt
 - Label the data for regression and classification tasks.
 - Remove Vietnamese stopwords from the text.
 
-##   
 
 ## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
