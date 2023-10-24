@@ -4,13 +4,13 @@
 
 
 ## Table of contents
-1. [Overview](#overview)
-    - [Project Purpose](#project-purpose)
+- [Overview](#overview)
+    - [Project](#project)
     - [Benefits](#benefits)
     - [Workflow](#workflow)
     - [Input and Output](#input-and-output)
-2. [](#)
-3. 
+- [Installation](#installation)
+- [FastAPI LocalHost Applicaiton](#fastapi-localhost-application)
 
 ## Overview
 
@@ -32,8 +32,10 @@
 
 This project harnesses the potential of textual data, translating it into actionable insights that benefit both individuals and businesses.
 
+## Installation
 
-## FastAPI LocalHost Web Application 
+
+## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
 
-
+Contact: anaaroncohen@gmail.com
