@@ -25,7 +25,13 @@
 
 - The project follows a structured workflow, including data preprocessing, model selection, training, evaluation, saving, and testing. Users can leverage the saved model for predictions based on their input text data.
 
-**Input and Output:**
+**Input and output for training, and testing:**
+- Input: file .csv ***in your language*** with structure:
+    - Review, entertainment, accommodation, restaurants, dining, transportation, shopping
+- Output: F1 Score, R2 Score, and Final Score (view [metrics.py](./A/deploy/metrics.py))
+
+
+**Input and Output of localhost application:**
 
 - Input: Reviews from users. Could be a paragraph or a sentence ***in any languages***.
 - Output: Aspect categorization and ratings derived from the Reviews.
