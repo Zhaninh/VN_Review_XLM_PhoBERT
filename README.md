@@ -82,11 +82,11 @@ https://localhost8000.com
 - [Split Train-Dev](./A/deploy/nam_split.py)
 - Create a folder named `Review_analysis_training` in your drive
 - [Train and Evaluate](https://colab.research.google.com/drive/1v7PelQhAJtzPIDl2V9qhCaLe6UO9f5Q9?usp=sharing)/
-(Adjust `switch` to select model in file **training.py**)
-(Ensure that `switch` variable in **evaluate.py** file matches the one in **training.py**)
+    (Adjust `switch` to select model in file **training.py**)/
+    (Ensure that `switch` variable in **evaluate.py** file matches the one in **training.py**)
 - Download weight into local
 - [Testing on application](./A/deploy/app.py)/
-***(Pasting the path leads to the weight - you've just downloaded - into `MODEL_PATH`)***
+    ***(Pasting the path leads to the weight - you've just downloaded - into `MODEL_PATH`)***
 
 ## Weights
 - Weight of XLM in [here](https://drive.google.com/file/d/15yhqZeTRkAXsnuZkB1yxH6rH6iUNgAuV/view?usp=sharing)
