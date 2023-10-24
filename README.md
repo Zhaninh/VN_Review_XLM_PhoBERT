@@ -1,4 +1,10 @@
-<span style="font-weight: bold; font-family: 'Baloo 2', sans-serif;">Review_analysis_DreamTim</span>
+<style>
+.custom-text {
+  font-weight: bold;
+  font-family: 'Baloo 2', sans-serif;
+}
+</style>
+<span class="custom-text">Review_analysis_DreamTim</span>
 
 
 
