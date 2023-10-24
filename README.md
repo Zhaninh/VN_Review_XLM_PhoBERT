@@ -42,6 +42,21 @@ cd ./A/deploy
 pip install -r requirements.txt
 ```
 
+## Preprocess
+Text Cleaning:
+- Remove special characters from the text.
+- Remove punctuation from the text.
+- Remove emojis from the text.
+- Remove URLs and file paths from the text.
+- Normalize annotations, converting "ks" to "khách sạn" (hotel) and "nv" to "nhân viên" (staff).
+- Remove escape characters such as line breaks, tabs, and carriage returns.
+- Combine the above cleaning methods to create a cleaned review.
+  
+Segmentation and Tokenization:
+- Segment the text using VnCoreNLP.
+- Tokenize the segmented text using a specified tokenizer.
+- Label the data for regression and classification tasks.
+- Remove Vietnamese stopwords from the text.
 
 
 ## FastAPI LocalHost Application 
