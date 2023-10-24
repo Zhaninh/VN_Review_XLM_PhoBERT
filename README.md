@@ -34,7 +34,7 @@
 This project harnesses the potential of textual data, translating it into actionable insights that benefit both individuals and businesses.
 
 ## Installation
-- `gitclone 
+- `gitclone https://github.com/Zhaninh/Review_analysis_DreamTim.git`
 - `cd ./A/deploy`
 
 
