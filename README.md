@@ -8,6 +8,7 @@
     - [Workflow](#workflow)
     - [Input and Output](#input-and-output)
 - [Installation](#installation)
+- [Preprocessing](#preprocessing)
 - [Usage](#usage)
 - [FastAPI LocalHost Applicaiton](#fastapi-localhost-application)
 
