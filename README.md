@@ -36,6 +36,7 @@ This project harnesses the potential of textual data, translating it into action
 ## Installation
 - `gitclone https://github.com/Zhaninh/Review_analysis_DreamTim.git`
 - `cd ./A/deploy`
+- `pip install -r requirements.txt`
 
 
 
