@@ -1,8 +1,6 @@
 <h1 align="center">Review_analysis_DreamTim 💬</h1>
 
 
-##   
-
 ## Table of contents
 - [Overview](#overview)
     - [Project](#project)
