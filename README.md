@@ -70,6 +70,7 @@ pip install -r requirements.txt
 ```bash
 uvicorn app:app --host=0.0.0.0 --port=8000 --workers=1
 ```
+- Waiting for application startup.
 - Open web browser --> Search:
 ```bash
 https://localhost8000.com
