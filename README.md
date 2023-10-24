@@ -58,6 +58,16 @@ pip install -r requirements.txt
 - Label the data for regression and classification tasks.
 - Remove Vietnamese stopwords from the text.
 
+## Usage
+- Open file app.py
+- Run in terminal:
+```bash
+uvicorn app:app --host=0.0.0.0 --port=8000 --workers=1
+```
+- Open web browser --> Search:
+```bash
+https://localhost8000.com
+```
 
 ## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
