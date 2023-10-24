@@ -1,4 +1,4 @@
-<h1 align="center">Review_analysis_DreamTim 💬</h1>
+<h1 align="center">Vietnamese_review_analysis_using_XLM_and_PhoBERT 💬</h1>
 
 
 ## Table of contents
