@@ -1,7 +1,7 @@
 <h1 align="center">Review_analysis_DreamTim 💬</h1>
 
 
-
+##   
 
 ## Table of contents
 - [Overview](#overview)
@@ -11,6 +11,8 @@
     - [Input and Output](#input-and-output)
 - [Installation](#installation)
 - [FastAPI LocalHost Applicaiton](#fastapi-localhost-application)
+
+##   
 
 ## Overview
 
@@ -33,6 +35,8 @@
 
 This project harnesses the potential of textual data, translating it into actionable insights that benefit both individuals and businesses.
 
+##   
+
 ## Installation
 ```bash
 git clone https://github.com/Zhaninh/Review_analysis_DreamTim.git
@@ -41,6 +45,8 @@ cd ./A/deploy
 
 pip install -r requirements.txt
 ```
+
+##   
 
 ## Preprocessing
 **Text Cleaning:**
