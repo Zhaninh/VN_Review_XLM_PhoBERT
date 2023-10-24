@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Review Analysis</title>
+<!--  <link rel="stylesheet" type="text/css" href="styles.css">-->
+  <!-- Kết nối với font "Baloo 2" từ Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&display=swap">
+  <style>
+    body {
+      background-color: #BBEABF;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .rectangle-container {
+    }
+
+    .rectangle {
+      width: 85vw;
+      height: 69vh;
+      background-color: #FFFFFF;
+      border-radius: 3vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      font-family: 'Baloo 2', cursive;
+      margin-top: 6vh;
+    }
+
+    .small-rectangle {
+      margin-top:3vh;
+      width: 40vw;
+      height: 12vh;
+      background-color: #FFFFFF;
+      border-radius: 3vh;
+      position: relative;
+      text-align: center;
+      line-height: 10vh;
+      font-family: 'Baloo 2', cursive;
+    }
+
+    .bubble-text {
+      font-family: 'Baloo 2', cursive;
+      color: #79AC78;
+      font-size: 6vh;
+      font-weight: bold;
+      animation: bubble 2s infinite;
+      position: relative;
+      top: 1vh;
+    }
+
+    .window-rectangle {
+      width: 40vw;
+      height: 56vh;
+      background-color: #FFFFFF;
+      border-radius: 3vh;
+      border: 0.3vh solid #618264;
+      display: flex;
+      left: 3vw;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .window-title-bar {
+      width: 100%;
+      height: 6.5vh;
+      background-color: #79AC78;
+      border-top-left-radius: 2.8vh;
+      border-top-right-radius: 2.8vh;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      position: relative;
+    }
+
+    .window-title {
+      margin-left: 3vh;
+      color: white;
+      font-family: 'Baloo 2', cursive;
+      font-size: 3vh;
+    }
+
+    .window-buttons {
+      position: absolute;
+      top: 0;
+      right: 0;
+      display: flex;
+    }
+
+    .window-button {
+      width: 2vw;
+      height: 3.5vh;
+      background-color: #6C996B;
+      margin-right: 1vh;
+      border-radius: 1vh;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      transform: translateY(1.5vh);
+    }
+
+    .window-button:hover {
+      background-color: #618264;
+    }
+
+    .window-button:nth-child(1):before {
+      content: "-";
+      font-family: 'Baloo 2', cursive;
+      font-size: 4vh;
+    }
+
+    .window-button:nth-child(2):before {
+      content: "▢";
+      font-family: 'Baloo 2', cursive;
+      transform: translateY(0.5vh);
+      font-size: 3.5vh;
+    }
+
+    .window-button:nth-child(3):before {
+      content: "x";
+      font-family: 'Baloo 2', cursive;
+      font-size: 3vh;
+    }
+
+    .window-content {
+      margin: 1vh;
+      flex: 1;
+      /* Thay đổi để bật thanh cuộn khi cần thiết */
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .review-input-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 200px;
+    }
+
+    .review-input {
+      font-family: 'Baloo 2', cursive;
+      border: none;
+      width: 92%;
+      height: 70%;
+      transform: translateX(1vw);
+      resize: none;
+      outline: none;
+      font-size: 2.5vh;
+      font-weight: normal;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      /* Để làm tròn thanh cuộn và phần ngoài */
+      scrollbar-width: thin;
+      scrollbar-color: #79AC78 #BBEABF;
+      border-radius: 1.8vh;
+      padding: 1vh;
+    }
+
+    .review-input::-webkit-scrollbar {
+      width: 1.3vh;
+    }
+
+    .review-input::-webkit-scrollbar-thumb {
+      background-color: #79AC78;
+      border-radius: 20vh;
+    }
+
+    .review-input::-webkit-scrollbar-track {
+      background-color: #BBEABF;
+      border-radius: 20vh;
+    }
+
+    .submit-button {
+      font-family: 'Baloo 2', cursive;
+      font-size: 2.5vh;
+      background-color: #79AC78;
+      color: white;
+      border: none;
+      border-radius: 1.8vh;
+      padding: 1.1vh 3.3vw;
+      cursor: pointer;
+      transform: translateY(-0.5vh);
+      align-self: center;
+      margin-top: 3.5vh;
+    }
+
+    .submit-button:hover {
+      background-color: #618264;
+    }
+
+    .table-rectangle {
+      font-family: 'Baloo 2', cursive;
+      margin-left: 47vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 56vh;
+      background-color: #f0f0f0;
+      border-radius: 3vh;
+      border: 0.3vh solid #618264;
+      position: absolute;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 35vw;
+      height: 56vh;
+      border-radius: 2.8vh;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 1.5vh;
+      text-align: center;
+      border-right: 0.3vh solid #618264
+    }
+
+    th:nth-child(2) {
+      border-right: none;
+    }
+
+    th {
+      background-color: #79AC78;
+      color: #ffffff;
+      font-weight: bold;
+      border-right: 0.3vh solid #618264;
+      font-size: 3vh;
+    }
+
+    td {
+      font-size: 2.5vh;
+    }
+
+    tr:nth-child(even) {
+      background-color: #ffffff;
+      border-bottom: 0.3vh solid #618264;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #ffffff;
+      color: #000000;
+      border-bottom: 0.3vh solid #618264
+    }
+
+    tr:last-child {
+      border-bottom: none;
+    }
+
+    @media (max-width: 768px) {
+      .bubble-text {
+        font-size: 4vh;
+      }
+      .window-title {
+        font-size: 2.5vh;
+      }
+      .window-button {
+        width: 3vh;
+        height: 3.5vh;
+        font-size: 3.5vh;
+      }
+    }
+
+    @keyframes bubble {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="rectangle-container">
+    <div class="small-rectangle">
+      <h1 class="bubble-text">Review Analysis</h1>
+    </div>
+  </div>
+  <div class="rectangle-container">
+    <div class="rectangle">
+      <div class="window-rectangle">
+        <div class="window-title-bar">
+          <span class="window-title">Input review</span>
+          <div class="window-buttons">
+            <div class="window-button"></div>
+            <div class="window-button"></div>
+            <div class="window-button"></div>
+          </div>
+        </div>
+        <div class="window-content">
+          <textarea class="review-input" id="review-input" placeholder="Input your reviews..."></textarea>
+          <button id="submit-review" class="submit-button">Submit</button>
+        </div>
+      </div>
+      <div class="table-rectangle" id = "result">
+        <table>
+          <tr>
+            <th style="width: 40%;">Aspect</th>
+            <th style="width: 60%;">Rating</th>
+          </tr>
+          <tr>
+            <td colspan="1">Giải trí</td>
+            <td colspan ="2" id="Giai_tri"></td>
+          </tr>
+          <tr>
+            <td colspan="1">Lưu trú</td>
+            <td colspan ="2" id="Luu_tru"></td>
+          </tr>
+          <tr>
+            <td colspan="1">Nhà hàng</td>
+            <td colspan ="2" id="Nha_hang"></td>
+          </tr>
+          <tr>
+            <td colspan="1">Ăn uống</td>
+            <td colspan ="2" id="An_uong"></td>
+          </tr>
+          <tr>
+            <td colspan="1">Di chuyển</td>
+            <td colspan ="2" id="Di_chuyen"></td>
+          </tr>
+          <tr>
+            <td colspan="1">Mua sắm</td>
+            <td colspan ="2" id="Mua_sam"></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('.window-button:nth-child(3)').addEventListener('click', function () {
+      const textarea = document.getElementById('review-input');
+      textarea.value = '';
+    });
+
+    const submitButton = document.querySelector('#submit-review');
+    submitButton.addEventListener('click', async function () {
+      const textarea = document.getElementById('review-input');
+      const resultDiv = document.getElementById('result');
+
+      // Get the review text from the textarea
+      const reviewText = textarea.value;
+
+      // Send the review to the API endpoint for analysis
+      const response = await fetch('/analyse', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: reviewText
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        document.getElementById('Giai_tri').textContent = data.Giai_tri;
+        document.getElementById('Luu_tru').textContent = data.Luu_tru;
+        document.getElementById('Nha_hang').textContent = data.Nha_hang;
+        document.getElementById('An_uong').textContent = data.An_uong;
+        document.getElementById('Di_chuyen').textContent = data.Di_chuyen;
+        document.getElementById('Mua_sam').textContent = data.Mua_sam;
+        resultDiv.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
