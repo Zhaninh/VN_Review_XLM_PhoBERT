@@ -84,5 +84,9 @@ https://localhost8000.com
 3. [Evaluate on private test](./A/deploy/evaluate.py) (Ensure that 'switch' variable in this file matches the one in 'training.py')
 4. [Testing on application](./A/deploy/app.py)
 
+## Weights
+- Weight of XLM in [here](https://drive.google.com/drive/folders/16kqSoiDPhFGu3u6fuIq2Eaz1pZ64D-BU?usp=sharing)
+- Weight of PhoBERT in [here](https://drive.google.com/drive/folders/17504ScyS91f8T8fzS70yU40An0odxluA?usp=sharing) 
+
 ## FastAPI LocalHost Application 
 ![](./images/Web.PNG)
