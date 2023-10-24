@@ -10,7 +10,7 @@
 - [Installation](#installation)
 - [FastAPI LocalHost Applicaiton](#fastapi-localhost-application)
 
-##   
+#  
 
 ## Overview
 
