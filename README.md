@@ -14,7 +14,7 @@
 
 ## Overview
 
-<u>**Project:**</u>
+**Project:**
 
 - The primary aim of this project is to create a machine learning model for text classification and regression. It serves as a powerful tool to streamline data analysis and make informed decisions based on text content.
 
