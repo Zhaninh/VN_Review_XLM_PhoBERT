@@ -47,12 +47,12 @@ async def analyse_review(review_data: Review):
         outputs = pred_to_label(outputs_classifier, outputs_regressor)
 
         return {
-            "Giai_tri": int(outputs[0][0])*"⭐",
-            "Luu_tru": int(outputs[0][1])*"⭐",
-            "Nha_hang": int(outputs[0][2])*"⭐",
-            "An_uong": int(outputs[0][3])*"⭐",
-            "Di_chuyen": int(outputs[0][4])*"⭐",
-            "Mua_sam": int(outputs[0][5])*"⭐"
+            "Giai_tri": int(outputs[0][0])*"⭐ ",
+            "Luu_tru": int(outputs[0][1])*"⭐ ",
+            "Nha_hang": int(outputs[0][2])*"⭐ ",
+            "An_uong": int(outputs[0][3])*"⭐ ",
+            "Di_chuyen": int(outputs[0][4])*"⭐ ",
+            "Mua_sam": int(outputs[0][5])*"⭐ "
         }
 
 @app.get("/")
