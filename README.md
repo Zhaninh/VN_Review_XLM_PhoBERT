@@ -81,7 +81,7 @@ https://localhost8000.com
 ## Project Run Guideline
 1. [Split Train-Dev](./A/deploy/nam_split.py)
 2. [Training](./A/deploy/training.py) (adjust 'switch' to select model)
-3. [Evaluation on private test](./A/deploy/evaluate.py) (Ensure that 'switch' variable in this file matches the one in 'training.py')
+3. [Evaluate on private test](./A/deploy/evaluate.py) (Ensure that 'switch' variable in this file matches the one in 'training.py')
 4. [Testing on application](./A/deploy/app.py)
 
 ## FastAPI LocalHost Application 
