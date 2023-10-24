@@ -42,7 +42,7 @@ cd ./A/deploy
 pip install -r requirements.txt
 ```
 
-## Preprocess
+## Preprocessing
 **Text Cleaning:**
 - Remove special characters from the text.
 - Remove punctuation from the text.
