@@ -10,6 +10,8 @@
 - [Installation](#installation)
 - [Preprocessing](#preprocessing)
 - [Usage](#usage)
+- [Project Run Guideline](#project_run_guideline)
+- [Weights](#weights)
 - [FastAPI LocalHost Applicaiton](#fastapi-localhost-application)
 
 
