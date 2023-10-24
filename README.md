@@ -28,7 +28,7 @@
 
 **Input and Output:**
 
-- Input: Reviews from users. Could be a paragraph or a sentence ***in any languages****.
+- Input: Reviews from users. Could be a paragraph or a sentence ****in any languages***.
 - Output: Aspect categorization and ratings derived from the Reviews.
 
 This project harnesses the potential of textual data, translating it into actionable insights that benefit both individuals and businesses.
