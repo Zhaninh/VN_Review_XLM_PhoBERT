@@ -1,7 +1,6 @@
-<div align="center" style="font-size: 100px;">
-  <strong>Review_analysis_DreamTim</strong>
-</div>
-
+<center>
+  <h1>Review_analysis_DreamTim</h1>
+</center>
 
 
 
