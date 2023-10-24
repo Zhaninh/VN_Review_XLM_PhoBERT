@@ -8,8 +8,8 @@ matplotlib
 re
 scikit-learn
 iterstrat
-nbimporter
 fastapi
 pydantic
 Jinja2
 statsmodels
+uvicorn
