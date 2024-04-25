@@ -7,11 +7,11 @@
     - [Project](#project)
     - [Benefits](#benefits)
     - [Workflow](#workflow)
-    - [Input and Output](#input-and-output)
+    - [Input and Output](#input-and-output-for-training,-and-testing)
 - [Installation](#installation)
 - [Preprocessing](#preprocessing)
 - [Usage](#usage)
-- [Project Run Guideline](#project_run_guideline)
+- [Project Run Guideline](#project-run-guideline)
 - [Weights](#weights)
 - [FastAPI LocalHost Applicaiton](#fastapi-localhost-application)
 
