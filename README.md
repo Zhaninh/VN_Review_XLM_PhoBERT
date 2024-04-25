@@ -92,7 +92,7 @@ https://localhost8000.com
     - ***Pasting the path leads to the weight - you've just downloaded - into `MODEL_PATH`***
 
 ## Weights
-- Weight of XLM in [here](https://drive.google.com/file/d/15yhqZeTRkAXsnuZkB1yxH6rH6iUNgAuV/view?usp=sharing)
+- Weight of XLM in [here](https://drive.google.com/file/d/15nYqm5LuVEChxhRmMqqNkW6J5wsl3VMk/view?usp=share_link)
 - Weight of PhoBERT in [here](https://drive.google.com/file/d/17CHUy43r29bc8azu9p-zT85CAu-V5QKa/view?usp=sharing)
 
 ## FastAPI LocalHost Application 
